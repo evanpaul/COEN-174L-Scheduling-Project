@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+
+    var planid;
+
+    function getPlanId() {
+      planid=get("planid");
+      $("#session").append("Session id is ", planid);
+    }
+
+    function get(param) {
+      var vars = {};
+      window.location.href.replace( location.hash, '' ).replace(
+        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+        function( m, key, value ) { // callback
+          vars[key] = value !== undefined ? value : '';
+        }
+      );
+      if ( param ) {
+        return vars[param] ? vars[param] : null;
+      }
+      return vars;
+    }
+
+  </script>
+
+</head>
+<body onload="getPlanId()">
+  <p id="session"></p>
+</body>
+</html>

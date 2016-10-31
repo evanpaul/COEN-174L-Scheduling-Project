@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<?php
+$cookie_name = "planid";
+if(!isset($_COOKIE[$cookie_name])) {
+  $cookie_value = uniqid();
+  echo $cookie_value;
+  setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+}
+else {
+  header('Location: view.html?$cookie_name=$cookie_value');
+}
+
+?>
+<html>
+<head>
+</head>
+<body>
+  <div>
+    <form action="view.html" method="get">
+      <p>Have a saved plan? Enter it here:</p>
+      <input type="text" name="planid">
+      <input type="submit"></br>
+    </form>
+
+    <form action="view.html?planid=<?php echo $_COOKIE['planid'] ?>" method="get">
+      <p> Start a new plan</p>
+      <input type="submit"
+  </div>
+</body>
+</html>

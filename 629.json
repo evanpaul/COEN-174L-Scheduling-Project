@@ -1,0 +1,9 @@
+{"plan" : {
+
+  "planid" : "629",
+  "courses" : [
+    {"name" : "coen10"},
+    {"name" : "coen11"},
+    {"name" : "coen12"}
+  ]
+}}

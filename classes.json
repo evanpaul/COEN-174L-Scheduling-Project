@@ -214,6 +214,7 @@
 
   {"dept" : "engr", "no" : "1", "label" : "ENGR 1", "req" : [{"name" : "engr1"}]},
   {"dept" : "engr", "no" : "19", "label" : "ENGR 19", "req" : [{"name" : "ethics"}]},
+  {"dept" : "engr", "no" : "110", "label" : "ENGR 110", "req" : [{"name" : "engr1"}]},
   {"dept" : "engr", "no" : "111", "label" : "ENGR 111", "req" : [{"name" : "elsj"}]},
   {"dept" : "engr", "no" : "143", "label" : "ENGR 143", "req" : [{"name" : "rtc2"}]},
   {"dept" : "engr", "no" : "177", "label" : "ENGR 177", "req" : [{"name" : "cni3"}]},
