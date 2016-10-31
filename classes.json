@@ -651,6 +651,6 @@
   {"dept" : "wgst", "no" : "180", "label" : "WGST 180", "req" : [{"name" : "diversity"}]},
   {"dept" : "wgst", "no" : "184", "label" : "WGST 184", "req" : [{"name" : "ethics"}]},
   {"dept" : "wgst", "no" : "188", "label" : "WGST 188", "req" : [{"name" : "diversity"}]},
-  {"dept" : "wgst", "no" : "189", "label" : "WGST 189", "req" : [{"name" : "ethics"}]},
+  {"dept" : "wgst", "no" : "189", "label" : "WGST 189", "req" : [{"name" : "ethics"}]}
 
 ]}
