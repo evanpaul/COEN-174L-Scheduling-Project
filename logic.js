@@ -740,14 +740,36 @@ function getReq(classCode){
     }
     console.error("getReq(): CLASS NOT FOUND");
 }
-function addFromInput(){
-    var classCode = $("#classBox").val();
-    var req = getReq(classCode);
 
-    if(req && classCode){
-        addClass(classCode, req);
+// function to submit a new class to the plan
+function submitClass() {
+
+  var textfield = $("#entered_class").val();
+
+  // gets rid of whitespace in submitted text and converts to lowercase
+  var classCode = myTrim(textfield).toLowerCase();
+  var dept = classCode.substring(0,4);
+  var num = classCode.substring(4);
+  // check if valid class
+  for(var i = 0; i < data.classes.length; i++){
+    // if found, get requirements and call addClass()
+    if(dept == data.classes[i].dept && num == data.classes[i].no) {
+        var reqs = getReq(classCode);
+        for (var i = 0; i < reqs.length; i++) {
+          addClass(classCode, reqs[i].name);
+        }
+        return;
     }
+  }
+  // case: not valid class
+  alert("The text you entered doesn't match any classes that fulfill a requirement");
 }
+
+// function removes all whitespace from input text
+function myTrim(x) {
+    return x.replace(/\s/g,'')
+}
+
 // Adds class to global list and colors corresponding box
 function addClass(classCode, req){
     console.log("Adding class:", classCode,", ", req);
