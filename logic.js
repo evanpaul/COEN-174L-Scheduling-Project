@@ -1,5 +1,5 @@
 var enteredClasses = [];
-
+var eduFlag = false;
 // Prevent accidental page refresh
 $(document).keypress(function(event){
     if(event.keyCode == 13){
@@ -690,8 +690,11 @@ data = {"classes": [
 
 ]};
 // Generate a new session from existing session
-function newSession(){
-    if (window.confirm("Do you really want to leave your current session to start a new one?")) {
+function newSession(confirmFlag = true){
+    if(confirmFlag){
+        var check = window.confirm("Do you really want to leave your current session to start a new one?");
+    }
+    if(check || !confirmFlag) {
         // Generate a new session with unique ID (copied from landing.js)
         // Unique ID generaton in JS source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
         var session = "";
@@ -702,6 +705,7 @@ function newSession(){
         // Redirect
         window.location = "index.html?id=" + session;
     }
+
 }
 // Retrieve ID from GET parameter in URL
 function getID(){
@@ -713,29 +717,48 @@ function getID(){
 }
 function populate(){
     var id = getID();
+    if(id == undefined){
+        newSession(confirmFlag=false);
+        return false;
+    }
     console.log("Begin population..." + id);
     $.ajax({
         type:"GET",
         url: "get.php",
         data: {"id": id},
         success: function(d){
+            console.log(d);
+            if(d == "INVALID"){
+                window.location = "error.html";
+            }
             if(d != "null"){ // If session exists
-                console.log(d);
                 var json = JSON.parse(d);
-                console.log("JSON:", json.classes.length);
+                var eduFlag = (json.eduFlag === "true");
 
+
+                console.log(eduFlag, typeof(eduFlag));
                 for (var i = 0; i < json.classes.length; i++){
                   var classCode = json.classes[i].classCode;
                   var req = json.classes[i].req;
                   addClass(classCode, req);
                 }
+                // Color edu Enrich
+                if(eduFlag){
+                    var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
+                    $("ul").append(htmlString);
+                    $("#eduEnrich").css("background-color", "limegreen");
+                    $("#eduEnrich").html("Complete");
+                }else{
+                    $("#eduEnrich").css("background-color", "lightgray");
+                }
             }else{
-                console.log("No existing detected!");
+                console.log("No existing session detected!");
             }
 
         }
     })
 }
+// Given a classcode, return a requirement (iff exists)
 function getReq(classCode){
     var dept = classCode.substring(0,4);
     var num = classCode.substring(4);
@@ -748,7 +771,7 @@ function getReq(classCode){
     console.error("getReq(): CLASS NOT FOUND");
 }
 
-// function to submit a new class to the plan
+// Submit user's inputted classcode
 function submitClass() {
 // Catch enter key?
   var textField = $("#entered_class").val();
@@ -756,19 +779,15 @@ function submitClass() {
       alert("Please enter a course!");
       return false;
   }
-  // gets rid of whitespace in submitted text and converts to lowercase
+  // Remove whitespace in submitted text and convert to lowercase
   var classCode = myTrim(textField).toLowerCase();
-  console.log("Submitting: " + classCode);
 
   var dept = classCode.substring(0,4);
   var num = classCode.substring(4);
-  console.log(dept, num);
-  // check if valid class
+  // Check if valid class
   for(var i = 0; i < data.classes.length; i++){
-    // if found, get requirements and call addClass()
-    console.log(dept, "?=", data.classes[i].dept);
+    // If found, get requirements and call addClass()
     if(dept == data.classes[i].dept && num == data.classes[i].no) {
-        console.log("Match!");
         var reqs = getReq(classCode);
         for (var i = 0; i < reqs.length; i++) {
           addClass(classCode, reqs[i].name);
@@ -776,12 +795,12 @@ function submitClass() {
         return false;
     }
   }
-  // case: not valid class
+  // Case: not valid class
   alert("The text you entered doesn't match any classes that fulfill a requirement");
   return false;
 }
 
-// function removes all whitespace from input text
+// Removes all whitespace from input text
 function myTrim(x) {
     return x.replace(/\s/g,'')
 }
@@ -791,17 +810,6 @@ function addClass(classCode, req){
     console.log("Adding class:", classCode,", ", req);
     var newClass = {};
     console.log($("#"+req));
-    // for(var i = 0; i < req.length; i++){
-    //     console.log("checking: ");
-    //     console.log(req[i].name);
-    //     newClass.classCode = classCode;
-    //     newClass.req = req[i].name;
-    //     enteredClasses.push(newClass);
-    //     $("#"+req[i].name).css("background-color", "limegreen");
-    // }
-    // var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
-    // console.log(htmlString);
-    // $("ul").append(htmlString);
 
     // construct object to push into global list
     newClass.classCode = classCode;
@@ -863,12 +871,13 @@ function classFound(classCode) {
   }
   return false;
 }
-
+// Change state of educational enrichment
 function changeState() {
     if($("#eduEnrich").html() == "Complete") {
       $("#eduEnrich_").remove();
       $("#eduEnrich").css("background-color", "lightgray");
       $("#eduEnrich").html("Not Complete");
+      eduFlag = false;
     }
 
     else {
@@ -876,6 +885,7 @@ function changeState() {
       $("ul").append(htmlString);
       $("#eduEnrich").css("background-color", "limegreen");
       $("#eduEnrich").html("Complete");
+      eduFlag = true;
     }
 }
 // POST classes to JSON file via AJAX
@@ -885,9 +895,9 @@ function save(){
     $.ajax({
         type:"POST",
         url: "post.php",
-        data: {"id": id, "classes": enteredClasses},
+        data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
-            console.log("posted");
+            console.log("Posted!");
         }
     });
 }
