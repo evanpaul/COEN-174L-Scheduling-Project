@@ -723,12 +723,14 @@ function getReq(classCode){
 // Adds class to global list and colors corresponding box
 function addClass(classCode, req){
     console.log("Adding class:", classCode, req);
-    var newClass = {"classCode" : classCode, "req" : req};
-    enteredClasses.push(newClass);
-    //console.log($("#"+req));
+    var newClass = {};
+    console.log($("#"+req));
     for(var i = 0; i < req.length; i++){
         console.log("checking: ");
         console.log(req[i].name);
+        newClass.classCode = classCode;
+        newClass.req = req[i].name;
+        enteredClasses.push(newClass);
         $("#"+req[i].name).css("background-color", "#00FF00");
     }
     var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
