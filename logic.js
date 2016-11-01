@@ -715,6 +715,7 @@ function getID(){
     });
     return queryDict["id"];
 }
+// Bug: only adding educational enrichment won't save because classes are empty
 function populate(){
     var id = getID();
     if(id == undefined){
@@ -727,7 +728,7 @@ function populate(){
         url: "get.php",
         data: {"id": id},
         success: function(d){
-            console.log(d);
+            console.log("get.php returned: " + d);
             if(d == "INVALID"){
                 window.location = "error.html";
             }
@@ -736,7 +737,6 @@ function populate(){
                 var eduFlag = (json.eduFlag === "true");
 
 
-                console.log(eduFlag, typeof(eduFlag));
                 for (var i = 0; i < json.classes.length; i++){
                   var classCode = json.classes[i].classCode;
                   var req = json.classes[i].req;
@@ -807,9 +807,7 @@ function myTrim(x) {
 
 // Adds class to global list and colors corresponding box
 function addClass(classCode, req){
-    console.log("Adding class:", classCode,", ", req);
     var newClass = {};
-    console.log($("#"+req));
 
     // construct object to push into global list
     newClass.classCode = classCode;
@@ -819,7 +817,6 @@ function addClass(classCode, req){
     // if class isn't already in global, print on page
     if (!classFound(classCode)){
       var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
-      console.log(htmlString);
       $("ul").append(htmlString);
     }
     // finally push into global list
@@ -828,13 +825,11 @@ function addClass(classCode, req){
 // Removes class from global list
 function removeClass(classCode) {
     var checkReq;
-    console.log("removing:", classCode);
     for (var i = 0; i < enteredClasses.length; i++){
         if (enteredClasses[i].classCode == classCode){
             checkReq = enteredClasses[i].req;
             enteredClasses.splice(i, 1); // Remove element from array
             if (!reqFound(checkReq)){
-                console.log("Removing!");
                 $("#"+checkReq).css("background-color", "lightgray");
             }
 
@@ -853,7 +848,6 @@ function removeClass(classCode) {
 function reqFound(req) {
   var i;
   for (i = 0; i < enteredClasses.length; i++) {
-    //console.log(enteredClasses[i].req);
     if (enteredClasses[i].req == req) {
       return true;
     }
@@ -897,7 +891,7 @@ function save(){
         url: "post.php",
         data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
-            console.log("Posted!");
+            console.log("Session succesfully* saved!");
         }
     });
 }

@@ -1,7 +1,6 @@
 var session_id = "";
 // Clever check for cookie
 // Source: http://stackoverflow.com/questions/10730362/get-cookie-by-name
-console.log(document.cookie);
 var value = "; " + document.cookie;
 var parts = value.split("; " + "id" + "=");
 if (parts.length == 2){
@@ -9,9 +8,8 @@ if (parts.length == 2){
 }
 // If no cookie detected...
 if(!session_id){
-    console.log("No cookie :(");
     $(document).keypress(function(e) {
-        if(e.which == 13){ // 13: enter
+        if(e.which == 13){ // 13 => enter
             session_id = $("#input").val();
             reqObject = {"id": session_id};
 

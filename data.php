@@ -42,27 +42,4 @@ function save_session($json_string){
         print "[ERROR] Unable to write to file!";
     }
 }
-/* TESTS
-
-$a = get_all_sessions();
-$json_string = json_encode($a, JSON_PRETTY_PRINT);
-var_dump($json_string);
-
-$b = get_session("3938ab");
-var_dump($b);
-
-$null = get_session("not_real");
-var_dump($null);
-
-
-$c = '{"id":"3938ab", "name":"dope"}';
-save_session($c);
-
-$d = '{"id":"298afe", "name":"WOAH"}';
-save_session($d);
-
-$sessions = get_all_sessions();
-$json_string = json_encode($sessions, JSON_PRETTY_PRINT);
-print $json_string;
-*/
 ?>
