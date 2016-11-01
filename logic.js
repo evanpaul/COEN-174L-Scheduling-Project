@@ -740,7 +740,14 @@ function getReq(classCode){
     }
     console.error("getReq(): CLASS NOT FOUND");
 }
+function addFromInput(){
+    var classCode = $("#classBox").val();
+    var req = getReq(classCode);
 
+    if(req && classCode){
+        addClass(classCode, req);
+    }
+}
 // Adds class to global list and colors corresponding box
 function addClass(classCode, req){
     console.log("Adding class:", classCode,", ", req);
