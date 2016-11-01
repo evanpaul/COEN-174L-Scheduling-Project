@@ -760,7 +760,7 @@ function fillClasses(classthing)
     //var entry = document.createElement('li');
     //entry.appendChild(document.createTextNode(classthing));
     //list.appendChild(entry);
-    $("ul").append("<li id='" + enteredClasses.length + "'>" + classthing + "<button onclick='removeClass(this.id);'>remove</button></li>");
+    $("ul").append("<li id='" + (enteredClasses.length-1) + "'>" + classthing + "<button onClick='removeClass(this.id)'>remove</button></li>");
 }
 
 function colorboxes()
@@ -783,9 +783,13 @@ function colorboxes()
     }
 }
 
-function removeClass(theID)
+function removeClass(callingID)
 {
-    console.log(theID);
+    console.log(callingID);
+    enteredClasses.splice(callingID, 1);
+    console.log(enteredClasses);
+    var list = document.getElementById("class_list");
+    list.removeChild(list.childNodes[theID]);
 }
 
 function changeState()
