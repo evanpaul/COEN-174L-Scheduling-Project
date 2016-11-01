@@ -1,1 +1,8 @@
-{"id":"10101bd","classes":["coen12","coen174","coen194"]}
+{
+"id":"10101bd",
+"classes":[
+    {"classCode" : "coen10", "req" : "coen10"},
+    {"classCode" : "poli2", "req" : "socsci"},
+    {"classCode" : "poli2", "req" : "cni3"}
+]
+}

@@ -28,25 +28,9 @@
             console.log("Cookie found! Yum.");
             window.location = "index.html?id=" + session_id;
         }
-
-        // Post test
-        postObject = {"id" : "10101bd", "classes" : ["coen12", "coen161", "coen174", "coen194"]};
-        // Store data
-        function save(){
-            $.ajax({
-                type:"POST",
-                url: "post.php",
-                data: postObject,
-                success: function(){
-                    alert("Successfully posted");
-                }
-            })
-        }
-
         </script>
     </head>
     <body>
         <input type="text" id="input" placeholder="type here"></input>
-        <!--<button id ="save" onclick="save()">Save test</button>-->
     </body>
 </html>

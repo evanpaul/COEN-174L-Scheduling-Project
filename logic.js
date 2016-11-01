@@ -696,7 +696,6 @@ function populate(){
         url: "get.php",
         data: {"id": id},
         success: function(d){
-            // Hacky, but will have to do for the time being... why is a character appearing in front of JSON string?
             console.log("GET: "+id+" yielded: " + d);
             var json = JSON.parse(d);
             console.log("JSON:", json.classes.length);
@@ -836,4 +835,14 @@ function changeState() {
       $("#eduEnrich").css("background-color", "limegreen");
       $("#eduEnrich").html("Complete");
     }
+}
+function save(){
+    $.ajax({
+        type:"GET",
+        url: "get.php",
+        data: {"id": getID(), "classes": enteredClasses},
+        success: function(d){
+            console.log("posted");
+        }
+    });
 }
