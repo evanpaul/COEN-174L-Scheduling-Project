@@ -731,7 +731,7 @@ function addClass(classCode, req){
         console.log(req[i].name);
         $("#"+req[i].name).css("background-color", "#00FF00");
     }
-    var htmlString = "<li id ='"+classCode+"'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+    var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
     console.log(htmlString);
     $("ul").append(htmlString);
 }
@@ -746,8 +746,9 @@ function removeClass(classCode) {
             for (var j = 0; j < checkReq.length; j++){
                 console.log("Checkin: " + checkReq[j].name);
                 if (!reqFound(checkReq[j].name)){
+                    console.log("Removing!");
                     $("#"+checkReq[j].name).css("background-color", "lightgray");
-                    $("#"+classCode).remove();
+                    $("#"+classCode + "_").remove();
                 }
             }
             if (classFound(classCode)){
