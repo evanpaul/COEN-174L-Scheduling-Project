@@ -701,15 +701,30 @@ function populate(){
             var json = JSON.parse(d);
             console.log("JSON:", json.classes.length);
 
+            // this is the old way....
             // for(var i = 0; i < json.classes.length; i++){
             //     addClass(json.classes[i], getReq(json.classes[i]));
             // }
 
-            for(var i = 0; i < json.classes.length; i++){
-                var reqs = getReq(json.classes[i]);
-                for(var j = 0; j < reqs.length; j++){
-                  addClass(json.classes[i], reqs[j].name);
-                }
+            // for(var i = 0; i < json.classes.length; i++){
+            //     var reqs = getReq(json.classes[i]);
+            //     for(var j = 0; j < reqs.length; j++){
+            //       addClass(json.classes[i], reqs[j].name);
+            //     }
+            // }
+
+            /* below for loop assumes a basic json file formatted like:
+             * {"classes" : [
+             *  {"classCode" : "coen10", "req" : "coen10"},
+             *  {"classCode" : "poli2", "req" : "socsci"},
+             *  {"classCode" : "poli2", "req" : "cni3"}
+             * ]}
+            */
+
+            for (var i = 0; i < json.classes.length; i++){
+              var classCode = json.classes[i].classCode;
+              var req = json.classes[i].req;
+              addClass(classCode, req);
             }
         }
     })
