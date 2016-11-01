@@ -701,8 +701,15 @@ function populate(){
             var json = JSON.parse(d);
             console.log("JSON:", json.classes.length);
 
+            // for(var i = 0; i < json.classes.length; i++){
+            //     addClass(json.classes[i], getReq(json.classes[i]));
+            // }
+
             for(var i = 0; i < json.classes.length; i++){
-                addClass(json.classes[i], getReq(json.classes[i]));
+                var reqs = getReq(json.classes[i]);
+                for(var j = 0; j < reqs.length; j++){
+                  addClass(json.classes[i], reqs[j].name);
+                }
             }
         }
     })
@@ -722,20 +729,34 @@ function getReq(classCode){
 
 // Adds class to global list and colors corresponding box
 function addClass(classCode, req){
-    console.log("Adding class:", classCode, req);
+    console.log("Adding class:", classCode,", ", req);
     var newClass = {};
     console.log($("#"+req));
-    for(var i = 0; i < req.length; i++){
-        console.log("checking: ");
-        console.log(req[i].name);
-        newClass.classCode = classCode;
-        newClass.req = req[i].name;
-        enteredClasses.push(newClass);
-        $("#"+req[i].name).css("background-color", "limegreen");
+    // for(var i = 0; i < req.length; i++){
+    //     console.log("checking: ");
+    //     console.log(req[i].name);
+    //     newClass.classCode = classCode;
+    //     newClass.req = req[i].name;
+    //     enteredClasses.push(newClass);
+    //     $("#"+req[i].name).css("background-color", "limegreen");
+    // }
+    // var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+    // console.log(htmlString);
+    // $("ul").append(htmlString);
+
+    // construct object to push into global list
+    newClass.classCode = classCode;
+    newClass.req = req;
+    // change color to green
+    $("#"+req).css("background-color", "limegreen");
+    // if class isn't already in global, print on page
+    if (!classFound(classCode)){
+      var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+      console.log(htmlString);
+      $("ul").append(htmlString);
     }
-    var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
-    console.log(htmlString);
-    $("ul").append(htmlString);
+    // finally push into global list
+    enteredClasses.push(newClass);
 }
 // Removes class from global list
 function removeClass(classCode) {
@@ -786,8 +807,7 @@ function classFound(classCode) {
   return false;
 }
 
-function changeState()
-{
+function changeState() {
 
     if($("#eduEnrich").html() == "Complete") {
       $("#eduEnrich_").remove();
