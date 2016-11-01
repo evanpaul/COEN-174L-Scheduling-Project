@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <script type="text/javascript" src="resources/jquery.js"></script>
+        <script type="text/javascript">
+        var session_id = "";
+        // Clever check for cookie
+        // Source: http://stackoverflow.com/questions/10730362/get-cookie-by-name
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + "session_id" + "=");
+        if (parts.length == 2){
+            var session_id = parts.pop().split(";").shift();
+        }
+        // If no cookie detected...
+        if(!session_id){
+            console.log("No cookie :(");
+            $(document).keypress(function(e) {
+                if(e.which == 13){ // 13: enter
+                    session_id = $("#input").val();
+                    reqObject = {"id": session_id};
+
+                    window.location = "index.html?id=" + session_id;
+                    return false;
+                }
+            });
+        }else{
+            console.log("Cookie found! Yum.");
+            window.location = "index.html?id=" + session_id;
+        }
+
+        // Post test
+        postObject = {"id" : "10101bd", "classes" : ["coen12", "coen161", "coen174", "coen194"]};
+        // Store data
+        function save(){
+            $.ajax({
+                type:"POST",
+                url: "post.php",
+                data: postObject,
+                success: function(){
+                    alert("Successfully posted");
+                }
+            })
+        }
+
+        </script>
+    </head>
+    <body>
+        <input type="text" id="input" placeholder="type here"></input>
+        <!--<button id ="save" onclick="save()">Save test</button>-->
+    </body>
+</html>

@@ -25,7 +25,7 @@ function get_session($id){
     if(!$file_name[0]){
         return NULL;
     }
-    $json = json_decode(file_get_contents($file_name[0], true), true);
+    $json = json_decode(file_get_contents($file_name[0]), true);
 
     return $json;
 }
