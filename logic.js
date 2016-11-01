@@ -1,4 +1,13 @@
 var enteredClasses = [];
+
+// Prevent accidental page refresh
+$(document).keypress(function(event){
+    if(event.keyCode == 13){
+        event.preventDefault();
+        submitClass();
+    }
+});
+
 data = {"classes": [
 
   {"dept" : "anth", "no" : "2", "label" : "ANTH 2", "req" : [{"name" : "socsci"}]},
@@ -873,9 +882,13 @@ function changeState() {
     }
 }
 function save(){
+    var id = getID();
+    console.log("Attempting to post: " + id+ " and I see: ");
+    console.log(enteredClasses);
+
     $.ajax({
-        type:"GET",
-        url: "get.php",
+        type:"POST",
+        url: "post.php",
         data: {"id": getID(), "classes": enteredClasses},
         success: function(d){
             console.log("posted");
