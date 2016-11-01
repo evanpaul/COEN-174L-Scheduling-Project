@@ -1,5 +1,4 @@
 var enteredClasses = [];
-//var reqMet = [];
 data = {"classes": [
 
   {"dept" : "anth", "no" : "2", "label" : "ANTH 2", "req" : [{"name" : "socsci"}]},
@@ -729,10 +728,10 @@ function addClass(classCode, req){
     //console.log($("#"+req));
     for(var i = 0; i < req.length; i++){
         console.log("checking: ");
-        console.log(req);
+        console.log(req[i].name);
         $("#"+req[i].name).css("background-color", "#00FF00");
     }
-    var htmlString = "<li>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+    var htmlString = "<li id ='"+classCode+"'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
     console.log(htmlString);
     $("ul").append(htmlString);
 }
@@ -748,6 +747,7 @@ function removeClass(classCode) {
                 console.log("Checkin: " + checkReq[j].name);
                 if (!reqFound(checkReq[j].name)){
                     $("#"+checkReq[j].name).css("background-color", "lightgray");
+                    $("#"+classCode).remove();
                 }
             }
             if (classFound(classCode)){

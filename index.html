@@ -3,16 +3,13 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="styles.css">
-        <link rel="stylesheet" type="text/css" href="bootstrap.css">
-        <script type="text/javascript" src="scripts.js"></script>
-            <style>
-
-            </style>
-        <title> SCU Degree Audit </title>
+        <script type="text/javascript" src="logic.js"></script>
+        <script type="text/javascript" src="resources/jquery.js"></script>
+        <title> SCU Degree Progress Tracker</title>
     </head>
 
-    <body onload="helloWorld()">
-        <h1>SCU Degree Audit</h1>
+    <body onload="populate()">
+        <h1>SCU Degree Progress Tracker</h1>
 
         <div style="width: 100%;">
             <div style="float:left; width: 54%" id="left_side">
@@ -30,75 +27,76 @@
 
             <div style="float:right; width: 45%" id="right_side">
                 <h2>Major Requirements</h2>
-                    <table class="class_table">
-                        <tr>
-                            <td>ENGR 1/110</td>
-                            <td>COEN 10</td>
-                            <td>COEN 11</td>
-                            <td>COEN 12</td>
-                            <td>COEN 19</td>
-                        </tr>
-                        <tr>
-                            <td>COEN 20</td>
-                            <td>COEN 21</td>
-                            <td>COEN 70</td>
-                            <td>COEN 122</td>
-                            <td>COEN 146</td>
-                        </tr>
-                        <tr>
-                            <td>COEN 171</td>
-                            <td>COEN 174</td>
-                            <td>COEN 175</td>
-                            <td>COEN 177</td>
-                            <td>COEN 179</td>
-                        </tr>
-                        <tr>
-                            <td>COEN 194</td>
-                            <td>COEN 195</td>
-                            <td>COEN 196</td>
-                            <td>ELEN 50</td>
-                            <td>ELEN 153</td>
-                        </tr>
-                        <tr>
-                            <td>ENGL 181</td>
-                            <td>MATH 11</td>
-                            <td>MATH 12</td>
-                            <td>MATH 13</td>
-                            <td>MATH 14</td>
-                        </tr>
-                        <tr>
-                            <td>PHYS 31</td>
-                            <td>PHYS 32</td>
-                            <td>PHYS 33</td>
-                            <td>CHEM 11</td>
-                            <td>AMTH 106</td>
-                        </tr>
-                        <tr>
-                            <td>AMTH 108</td>
-                            <td>MATH 53/166/AMTH 118</td>
-                        </tr>
-                    </table>
-                <h2>CORE</h2>
-                    <table class="class_table">
-                        <tr>
-                            <td>CTW 1</td>
-                            <td>CTW 2</td>
-                            <td>C&I 1</td>
-                            <td>C&I 2</td>
-                            <td>RTC 1</td>
-                        </tr>
-                        <tr>
-                            <td>RTC 2</td>
-                            <td>RTC 3</td>
-                            <td>ETHICS</td>
-                            <td>DIVERSITY ENG.</td>
-                            <td>NAT. SCIENCE</td>
-                        </tr>
-                        <tr>
-                            <td>SOC. SCIENCE</td>
-                            <td>ELSJ</td>
-                        </tr>
-                    </table>
+                <table class="class_table" id="majorTab">
+                    <tr>
+                        <td id="engr1">ENGR 1/110</td>
+                        <td id="coen10">COEN 10</td>
+                        <td id="coen11">COEN 11</td>
+                        <td id="coen12">COEN 12</td>
+                        <td id="coen19">COEN 19</td>
+                    </tr>
+                    <tr>
+                        <td id="coen20">COEN 20</td>
+                        <td id="coen12">COEN 21</td>
+                        <td id="coen70">COEN 70</td>
+                        <td id="coen122">COEN 122</td>
+                        <td id="coen146">COEN 146</td>
+                    </tr>
+                    <tr>
+                        <td id="coen171">COEN 171</td>
+                        <td id="coen174">COEN 174</td>
+                        <td id="coen175">COEN 175</td>
+                        <td id="coen177">COEN 177</td>
+                        <td id="coen179">COEN 179</td>
+                    </tr>
+                    <tr>
+                        <td id="coen194">COEN 194</td>
+                        <td id="coen195">COEN 195</td>
+                        <td id="coen196">COEN 196</td>
+                        <td id="elen50">ELEN 50</td>
+                        <td id="elen153">ELEN 153</td>
+                    </tr>
+                    <tr>
+                        <td id="engl181">ENGL 181</td>
+                        <td id="math11">MATH 11</td>
+                        <td id="math12">MATH 12</td>
+                        <td id="math13">MATH 13</td>
+                        <td id="math14">MATH 14</td>
+                    </tr>
+                    <tr>
+                        <td id="phys31">PHYS 31</td>
+                        <td id="phys32">PHYS 32</td>
+                        <td id="phys33">PHYS 33</td>
+                        <td id="chem11">CHEM 11</td>
+                        <td id="amth106">AMTH 106</td>
+                    </tr>
+                    <tr>
+                        <td id="amth108">AMTH 108</td>
+                        <td id="math53">MATH 53/166/AMTH 118</td>
+                    </tr>
+                </table>
+            <h2>CORE</h2>
+                <table class="class_table" id="coreTab">
+                    <tr>
+                        <td id="ctw1">CTW 1</td>
+                        <td id="ctw2">CTW 2</td>
+                        <td id="cni1">C&I 1</td>
+                        <td id="cni2">C&I 2</td>
+                        <td id="cni3">C&I 3</td>
+                    </tr>
+                    <tr>
+                        <td id="rtc1">RTC 1</td>
+                        <td id="rtc2">RTC 2</td>
+                        <td id="rtc3">RTC 3</td>
+                        <td id="ethics">ETHICS</td>
+                        <td id="diversity">DIVERSITY ENG.</td>
+                    </tr>
+                    <tr>
+                        <td id="naturalscience">NAT. SCIENCE</td>
+                        <td id="socsci">SOC. SCIENCE</td>
+                        <td id="elsj">ELSJ</td>
+                    </tr>
+                </table>
                 <h2>Educational Enrich.</h2>
             </div>
         </div>
