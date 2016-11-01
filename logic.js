@@ -731,7 +731,7 @@ function addClass(classCode, req){
         newClass.classCode = classCode;
         newClass.req = req[i].name;
         enteredClasses.push(newClass);
-        $("#"+req[i].name).css("background-color", "#00FF00");
+        $("#"+req[i].name).css("background-color", "limegreen");
     }
     var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
     console.log(htmlString);
@@ -781,4 +781,21 @@ function classFound(classCode) {
     }
   }
   return false;
+}
+
+function changeState()
+{
+
+    if($("#eduEnrich").html() == "Complete") {
+      $("#eduEnrichList").remove();
+      $("#eduEnrich").css("background-color", "lightgray");
+      $("#eduEnrich").html("Not Complete");
+    }
+
+    else {
+      var htmlString = "<li id ='eduEnrichList'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
+      $("ul").append(htmlString);
+      $("#eduEnrich").css("background-color", "limegreen");
+      $("#eduEnrich").html("Complete");
+    }
 }
