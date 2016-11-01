@@ -14,10 +14,12 @@ function removeClass(classcode) {
   for (i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].classcode == classcode) {
       checkreq = enteredClasses[i].req;
-      //delete enteredClasses[i]; //!
       enteredClasses.splice(i, 1);
       if (!reqFound(checkreq)) {
         $("#"+checkreq).css("background-color", "lightgray");
+      }
+      if (classFound(classcode)) {
+        removeClass(classcode); 
       }
     }
   }
@@ -27,7 +29,6 @@ function removeClass(classcode) {
 function reqFound(req) {
 
   var i;
-  console.log("HEY",enteredClasses);
   for (i = 0; i < enteredClasses.length; i+=1) {
     console.log(enteredClasses[i].req);
     if (enteredClasses[i].req == req) {
