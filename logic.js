@@ -690,7 +690,7 @@ function getID(){
 }
 function populate(){
     var id = getID();
-    console.log("Begin population...");
+    console.log("Begin population..." + id);
     $.ajax({
         type:"GET",
         url: "get.php",
@@ -743,26 +743,35 @@ function getReq(classCode){
 
 // function to submit a new class to the plan
 function submitClass() {
-
-  var textfield = $("#entered_class").val();
-
+// Catch enter key?
+  var textField = $("#entered_class").val();
+  if(!textField){
+      alert("Please enter a course!");
+      return false;
+  }
   // gets rid of whitespace in submitted text and converts to lowercase
-  var classCode = myTrim(textfield).toLowerCase();
+  var classCode = myTrim(textField).toLowerCase();
+  console.log("Submitting: " + classCode);
+
   var dept = classCode.substring(0,4);
   var num = classCode.substring(4);
+  console.log(dept, num);
   // check if valid class
   for(var i = 0; i < data.classes.length; i++){
     // if found, get requirements and call addClass()
+    console.log(dept, "?=", data.classes[i].dept);
     if(dept == data.classes[i].dept && num == data.classes[i].no) {
+        console.log("Match!");
         var reqs = getReq(classCode);
         for (var i = 0; i < reqs.length; i++) {
           addClass(classCode, reqs[i].name);
         }
-        return;
+        return false;
     }
   }
   // case: not valid class
   alert("The text you entered doesn't match any classes that fulfill a requirement");
+  return false;
 }
 
 // function removes all whitespace from input text
