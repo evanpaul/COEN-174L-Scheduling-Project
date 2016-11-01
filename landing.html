@@ -3,34 +3,15 @@
     <head>
         <meta charset="utf-8" />
         <script type="text/javascript" src="resources/jquery.js"></script>
-        <script type="text/javascript">
-        var session_id = "";
-        // Clever check for cookie
-        // Source: http://stackoverflow.com/questions/10730362/get-cookie-by-name
-        var value = "; " + document.cookie;
-        var parts = value.split("; " + "session_id" + "=");
-        if (parts.length == 2){
-            var session_id = parts.pop().split(";").shift();
-        }
-        // If no cookie detected...
-        if(!session_id){
-            console.log("No cookie :(");
-            $(document).keypress(function(e) {
-                if(e.which == 13){ // 13: enter
-                    session_id = $("#input").val();
-                    reqObject = {"id": session_id};
-
-                    window.location = "index.html?id=" + session_id;
-                    return false;
-                }
-            });
-        }else{
-            console.log("Cookie found! Yum.");
-            window.location = "index.html?id=" + session_id;
-        }
-        </script>
+        <script type="text/javascript" src="landing.js"></script>
+        <title>SCU Degree Progress Tracker</title>
     </head>
     <body>
-        <input type="text" id="input" placeholder="type here"></input>
+        <h1>SCU Degree Progress Tracker</h1>
+        <p>We didn't find any cookies on your system :(</p>
+        <p>Please enter a session ID to return to an existing session...</p>
+        <input type="text" id="input" placeholder="Enter unique session ID"></input>
+        <p>...or start a new session!</p>
+        <button id="generate" onclick="generate()">Generate new session</button>
     </body>
 </html>

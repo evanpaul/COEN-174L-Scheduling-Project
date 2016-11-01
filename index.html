@@ -10,12 +10,12 @@
 
     <body onload="populate()">
         <h1>SCU Degree Progress Tracker</h1>
-        <button id="save" onclick="save()">Save progress</button>
+        <button id="save" style="background-color:forestgreen;" onclick="save()">Save progress</button>
+        <button type="button" style="background-color:crimson;"onclick="newSession()">Generate a new session</button>
         <div style="width: 100%;">
             <div style="float:left; width: 54%" id="left_side">
                 <h4>Enter a class:</h4>
                 <form>
-                    <!--<span style="border:1px solid black; float:left; width:20%;" contenteditable="true">...</span>-->
                     <input type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
                     <button type="button" onclick="submitClass()">Submit</button>
                 </form>

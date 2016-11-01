@@ -688,7 +688,21 @@ data = {"classes": [
   {"dept" : "wgst", "no" : "188", "label" : "WGST 188", "req" : [{"name" : "diversity"}]},
   {"dept" : "wgst", "no" : "189", "label" : "WGST 189", "req" : [{"name" : "ethics"}]}
 
-]}
+]};
+// Generate a new session from existing session
+function newSession(){
+    if (window.confirm("Do you really want to leave your current session to start a new one?")) {
+        // Generate a new session with unique ID (copied from landing.js)
+        // Unique ID generaton in JS source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+        var session = "";
+        'xxxxxxxxxx'.replace(/x/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            session += v.toString(16); // Hexadecimal encoding
+        });
+        // Redirect
+        window.location = "index.html?id=" + session;
+    }
+}
 // Retrieve ID from GET parameter in URL
 function getID(){
     var queryDict = {}
@@ -705,35 +719,20 @@ function populate(){
         url: "get.php",
         data: {"id": id},
         success: function(d){
-            console.log("GET: "+id+" yielded: " + d);
-            var json = JSON.parse(d);
-            console.log("JSON:", json.classes.length);
+            if(d != "null"){ // If session exists
+                console.log(d);
+                var json = JSON.parse(d);
+                console.log("JSON:", json.classes.length);
 
-            // this is the old way....
-            // for(var i = 0; i < json.classes.length; i++){
-            //     addClass(json.classes[i], getReq(json.classes[i]));
-            // }
-
-            // for(var i = 0; i < json.classes.length; i++){
-            //     var reqs = getReq(json.classes[i]);
-            //     for(var j = 0; j < reqs.length; j++){
-            //       addClass(json.classes[i], reqs[j].name);
-            //     }
-            // }
-
-            /* below for loop assumes a basic json file formatted like:
-             * {"classes" : [
-             *  {"classCode" : "coen10", "req" : "coen10"},
-             *  {"classCode" : "poli2", "req" : "socsci"},
-             *  {"classCode" : "poli2", "req" : "cni3"}
-             * ]}
-            */
-
-            for (var i = 0; i < json.classes.length; i++){
-              var classCode = json.classes[i].classCode;
-              var req = json.classes[i].req;
-              addClass(classCode, req);
+                for (var i = 0; i < json.classes.length; i++){
+                  var classCode = json.classes[i].classCode;
+                  var req = json.classes[i].req;
+                  addClass(classCode, req);
+                }
+            }else{
+                console.log("No existing detected!");
             }
+
         }
     })
 }
@@ -743,7 +742,6 @@ function getReq(classCode){
 
     for(var i = 0; i < data.classes.length; i++){
         if(dept == data.classes[i].dept && num == data.classes[i].no){
-            //  {"dept" : "wgst", "no" : "189", "label" : "WGST 189", "req" : [{"name" : "ethics"}]}
             return data.classes[i].req;
         }
     }
@@ -867,7 +865,6 @@ function classFound(classCode) {
 }
 
 function changeState() {
-
     if($("#eduEnrich").html() == "Complete") {
       $("#eduEnrich_").remove();
       $("#eduEnrich").css("background-color", "lightgray");
@@ -881,15 +878,14 @@ function changeState() {
       $("#eduEnrich").html("Complete");
     }
 }
+// POST classes to JSON file via AJAX
 function save(){
     var id = getID();
-    console.log("Attempting to post: " + id+ " and I see: ");
-    console.log(enteredClasses);
-
+    document.cookie = "id="+id;
     $.ajax({
         type:"POST",
         url: "post.php",
-        data: {"id": getID(), "classes": enteredClasses},
+        data: {"id": id, "classes": enteredClasses},
         success: function(d){
             console.log("posted");
         }
