@@ -760,7 +760,7 @@ function fillClasses(classthing)
     //var entry = document.createElement('li');
     //entry.appendChild(document.createTextNode(classthing));
     //list.appendChild(entry);
-    $("ul").append("<li>" + classthing + "<button onclick='removeClass()'>remove</button></li>");
+    $("ul").append("<li id='" + enteredClasses.length + "'>" + classthing + "<button onclick='removeClass(this.id);'>remove</button></li>");
 }
 
 function colorboxes()
@@ -783,7 +783,21 @@ function colorboxes()
     }
 }
 
-function removeClass()
+function removeClass(theID)
 {
+    console.log(theID);
+}
 
+function changeState()
+{
+    if(document.getElementById("eduEnrich").style.backgroundColor != "green")
+    {
+        document.getElementById("eduEnrich").style.backgroundColor = "green";
+        document.getElementById("eduEnrich").innerHTML = "Complete";
+    }
+    else
+    {
+        document.getElementById("eduEnrich").style.backgroundColor = "gray";
+        document.getElementById("eduEnrich").innerHTML = "Not Complete";
+    }
 }
