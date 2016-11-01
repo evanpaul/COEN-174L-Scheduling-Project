@@ -780,13 +780,11 @@ function removeClass(classCode) {
         if (enteredClasses[i].classCode == classCode){
             checkReq = enteredClasses[i].req;
             enteredClasses.splice(i, 1); // Remove element from array
-            for (var j = 0; j < checkReq.length; j++){
-                console.log("Checkin: " + checkReq[j].name);
-                if (!reqFound(checkReq[j].name)){
-                    console.log("Removing!");
-                    $("#"+checkReq[j].name).css("background-color", "lightgray");
-                }
+            if (!reqFound(checkReq)){
+                console.log("Removing!");
+                $("#"+checkReq).css("background-color", "lightgray");
             }
+
             if (classFound(classCode)){
               removeClass(classCode);
             }
