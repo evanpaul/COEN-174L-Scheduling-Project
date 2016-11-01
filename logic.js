@@ -224,6 +224,7 @@ data = {"classes": [
 
   {"dept" : "engr", "no" : "1", "label" : "ENGR 1", "req" : [{"name" : "engr1"}]},
   {"dept" : "engr", "no" : "19", "label" : "ENGR 19", "req" : [{"name" : "ethics"}]},
+  {"dept" : "engr", "no" : "110", "label" : "ENGR 110", "req" : [{"name" : "engr1"}]},
   {"dept" : "engr", "no" : "111", "label" : "ENGR 111", "req" : [{"name" : "elsj"}]},
   {"dept" : "engr", "no" : "143", "label" : "ENGR 143", "req" : [{"name" : "rtc2"}]},
   {"dept" : "engr", "no" : "177", "label" : "ENGR 177", "req" : [{"name" : "cni3"}]},
@@ -813,7 +814,9 @@ function addClass(classCode, req){
     newClass.classCode = classCode;
     newClass.req = req;
     // change color to green
-    $("#"+req).css("background-color", "limegreen");
+    if (req != "elective") {
+      $("#"+req).css("background-color", "limegreen");
+    }
     // if class isn't already in global, print on page
     if (!classFound(classCode)){
       var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
@@ -821,6 +824,7 @@ function addClass(classCode, req){
     }
     // finally push into global list
     enteredClasses.push(newClass);
+    checkElective();
 }
 // Removes class from global list
 function removeClass(classCode) {
@@ -839,6 +843,9 @@ function removeClass(classCode) {
             // remove classCode off page
             else {
               $("#"+classCode+"_").remove();
+              if (checkReq == "elective") {
+                checkElective();
+              }
             }
         }
     }
@@ -894,4 +901,24 @@ function save(){
             console.log("Session succesfully* saved!");
         }
     });
+}
+
+function checkElective() {
+
+  var count = 0;
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].req == "elective") {
+      count++;
+      console.log(count);
+    }
+  }
+
+  if (count >= 3) {
+    $("#elective").css("background-color", "limegreen");
+    return true;
+  }
+  else {
+    $("#elective").css("background-color", "lightgray");
+    return false;
+  }
 }
