@@ -11,10 +11,14 @@ if(!session_id){
     $(document).keypress(function(e) {
         if(e.which == 13){ // 13 => enter
             session_id = $("#input").val();
-            reqObject = {"id": session_id};
-
-            window.location = "index.html?id=" + session_id;
-            return false;
+            if(!session_id.match(/^[0-9a-z]{10}$/)){
+                alert("The session ID you entered is not valid!");
+                $("#input").val("");
+            }else{
+                reqObject = {"id": session_id};
+                window.location = "index.html?id=" + session_id;
+            }
+            return false; // Prevents default behavior
         }
     });
 }else{

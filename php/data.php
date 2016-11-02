@@ -1,5 +1,5 @@
 <?php
-$DIR = 'objects/'; // Data-store path
+$DIR = '../objects/'; // Data-store path
 
 // Retrieve all active sessions as an array of JSON objects
 function get_all_sessions(){

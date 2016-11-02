@@ -2,29 +2,27 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
         <script type="text/javascript" src="resources/jquery.js"></script>
-        <script type="text/javascript" src="logic.js"></script>
-        <title> SCU Degree Progress Tracker</title>
+        <script type="text/javascript" src="js/logic.js"></script>
+        <title>SCU Degree Progress Tracker</title>
     </head>
     <body onload="populate()">
         <h1>SCU Degree Progress Tracker</h1>
-        <button id="save" style="background-color:forestgreen;" onclick="save()">Save progress</button>
-        <button type="button" style="background-color:crimson;"onclick="newSession()">Generate a new session</button>
-        <div style="width: 100%;">
-            <div style="float:left; width: 54%" id="left_side">
+        <button id="save" onclick="save()">Save progress</button>
+        <button id="newSession" type="button" onclick="newSession()">Generate a new session</button>
+        <div id="container">
+            <div id="left_side">
                 <h4>Enter a class:</h4>
                 <form>
                     <input type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
                     <button type="button" onclick="submitClass()">Submit</button>
                 </form>
                 <h2>Entered Courses:</h2>
-                <ul style="list-style-type:none" id="class_list">
-
-                </ul>
+                <ul id="class_list"></ul>
             </div>
-
-            <div style="float:right; width: 45%" id="right_side">
+            <div id="right_side">
                 <h2>Major Requirements</h2>
                 <table class="class_table" id="majorTab">
                     <tr>
@@ -97,9 +95,7 @@
                     </tr>
                 </table>
                 <h2>Educational Enrich.</h2>
-                <div id="eduEnrich" onclick="changeState()">
-                    Not Complete
-                </div>
+                <div id="eduEnrich" onclick="changeState()">Not Complete</div>
             </div>
         </div>
     </body>

@@ -1,15 +1,5 @@
-var enteredClasses = [];
-var eduFlag = false;
-// Prevent accidental page refresh
-$(document).keypress(function(event){
-    if(event.keyCode == 13){
-        event.preventDefault();
-        submitClass();
-    }
-});
-
+// Static JSON list of classes/reqs
 data = {"classes": [
-
   {"dept" : "anth", "no" : "2", "label" : "ANTH 2", "req" : [{"name" : "socsci"}]},
   {"dept" : "anth", "no" : "3", "label" : "ANTH 3", "req" : [{"name" : "socsci"}, {"name" : "elsj"}]},
   {"dept" : "anth", "no" : "11a", "label" : "ANTH 11A", "req" : [{"name" : "cni1"}]},
@@ -690,6 +680,17 @@ data = {"classes": [
   {"dept" : "wgst", "no" : "189", "label" : "WGST 189", "req" : [{"name" : "ethics"}]}
 
 ]};
+// Globals
+var enteredClasses = [];
+var eduFlag = false;
+// Prevent accidental page refresh
+$(document).keypress(function(event){
+    if(event.keyCode == 13){
+        event.preventDefault();
+        submitClass();
+    }
+});
+
 // Generate a new session from existing session
 function newSession(confirmFlag = true){
     if(confirmFlag){
@@ -706,7 +707,6 @@ function newSession(confirmFlag = true){
         // Redirect
         window.location = "index.html?id=" + session;
     }
-
 }
 // Retrieve ID from GET parameter in URL
 function getID(){
@@ -726,24 +726,24 @@ function populate(){
     console.log("Begin population..." + id);
     $.ajax({
         type:"GET",
-        url: "get.php",
+        url: "php/get.php",
         data: {"id": id},
         success: function(d){
             console.log("get.php returned: " + d);
-            if(d == "INVALID"){
+            if(d == "INVALID"){ // Invalid ID entered
                 window.location = "error.html";
             }
             if(d != "null"){ // If session exists
                 var json = JSON.parse(d);
                 var eduFlag = (json.eduFlag === "true");
 
-
+                // Loop through received list of classes and add to global list with requirements fulfilled
                 for (var i = 0; i < json.classes.length; i++){
-                  var classCode = json.classes[i].classCode;
-                  var req = json.classes[i].req;
-                  addClass(classCode, req);
+                    var classCode = json.classes[i].classCode;
+                    var req = json.classes[i].req;
+                    addClass(classCode, req);
                 }
-                // Color edu Enrich
+                // Color educational enrichment
                 if(eduFlag){
                     var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
                     $("ul").append(htmlString);
@@ -895,7 +895,7 @@ function save(){
     document.cookie = "id="+id;
     $.ajax({
         type:"POST",
-        url: "post.php",
+        url: "php/post.php",
         data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
             console.log("Session succesfully* saved!");

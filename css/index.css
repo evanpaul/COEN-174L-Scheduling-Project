@@ -1,0 +1,34 @@
+#left_side{
+    float: left;
+    width: 54%;
+    border:1px solid black;
+}
+#right_side{
+    float:right;
+    width: 45%;
+    border:1px solid black;
+}
+#container{
+    width: 100%;
+}
+#eduEnrich
+{
+    border:1px solid black;
+    width: 50%;
+    background-color: lightgray;
+}
+#class_list{
+    list-style-type: none;
+}
+#save{
+    background-color:forestgreen;
+}
+#newSession{
+    background-color:crimson;
+}
+table, th, td {
+   border: 1px solid black;
+}
+td{
+    background-color: lightgrey;
+}
