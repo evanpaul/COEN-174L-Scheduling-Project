@@ -1,15 +1,24 @@
+#header{
+    text-align: center;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
 #left_side{
-    float: left;
-    width: 54%;
-    border:1px solid black;
+    order: 1;
+    width: 45%;
+    padding: 5px;
 }
 #right_side{
-    float:right;
+    order: 2;
     width: 45%;
-    border:1px solid black;
+    padding: 5px;
 }
 #container{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 #eduEnrich
 {
@@ -21,10 +30,10 @@
     list-style-type: none;
 }
 #save{
-    background-color:forestgreen;
+    background-color:rgba(20, 243, 20, 0.80);
 }
 #newSession{
-    background-color:crimson;
+    background-color:rgba(224, 15, 15, 0.80);
 }
 table, th, td {
    border: 1px solid black;
