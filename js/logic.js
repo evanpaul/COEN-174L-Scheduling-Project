@@ -815,7 +815,7 @@ function addClass(classCode, req){
     newClass.req = req;
     // change color to green
     if (req != "elective") {
-      $("#"+req).css("background-color", "limegreen");
+      $("#"+req).css("background-color", "#81C784");
     }
     // if class isn't already in global, print on page
     if (!classFound(classCode)){

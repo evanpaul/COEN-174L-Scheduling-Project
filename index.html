@@ -3,13 +3,14 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
         <script type="text/javascript" src="resources/jquery.js"></script>
         <script type="text/javascript" src="js/logic.js"></script>
         <title>SCU Degree Progress Tracker</title>
     </head>
     <body onload="populate()">
-        <h1>SCU Degree Progress Tracker</h1>
+        <h1 id="title">SCU Degree Progress Tracker</h1>
         <button id="save" onclick="save()">Save progress</button>
         <button id="newSession" type="button" onclick="newSession()">Generate a new session</button>
         <div id="container">
@@ -24,7 +25,7 @@
             </div>
             <div id="right_side">
                 <h2>Major Requirements</h2>
-                <table class="class_table" id="majorTab">
+                <table class="class_table table" id="majorTab">
                     <tr>
                         <td id="engr1">ENGR 1</td>
                         <td id="coen10">COEN 10</td>
@@ -73,7 +74,7 @@
                     </tr>
                 </table>
             <h2>CORE</h2>
-                <table class="class_table" id="coreTab">
+                <table class="class_table table" id="coreTab">
                     <tr>
                         <td id="ctw1">CTW 1</td>
                         <td id="ctw2">CTW 2</td>
