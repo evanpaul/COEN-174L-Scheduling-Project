@@ -22,7 +22,7 @@ function get_session($id){
         print "[WARNING] Duplicate JSON file names!";
     }
     // Don't continue if file is invalid
-    if(!$file_name[0]){
+    if(empty($file_name)){
         return NULL;
     }
     $json = json_decode(file_get_contents($file_name[0]), true);
