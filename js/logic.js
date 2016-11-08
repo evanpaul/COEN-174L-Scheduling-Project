@@ -922,3 +922,9 @@ function checkElective() {
     return false;
   }
 }
+
+function reconfigArray() {
+  for (var i = 0; i < enteredClasses.length; i++) {
+    enteredClasses[i].used = false; 
+  }
+}
