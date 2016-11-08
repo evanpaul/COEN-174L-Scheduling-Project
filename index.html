@@ -4,18 +4,22 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css">
         <script type="text/javascript" src="resources/jquery.js"></script>
         <script type="text/javascript" src="js/logic.js"></script>
         <title>SCU Degree Progress Tracker</title>
     </head>
     <body onload="populate()">
-        <h1 id="title">SCU Degree Progress Tracker</h1>
-        <button id="save" onclick="save()">Save progress</button>
-        <button id="newSession" type="button" onclick="newSession()">Generate a new session</button>
+        <div class="page-header" id="header">
+            <h1>SCU Degree Progress Tracker</h1>
+            <div class="btn-group" role="group">
+              <button class="btn btn-default" id="save" onclick="save()" type="button">Save progress</button>
+              <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
+            </div>
+        </div>
         <div id="container">
             <div id="left_side">
-                <h4>Enter a class:</h4>
+                <h2 class="panel-title">Enter a class</h2>
                 <form>
                     <input type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
                     <button type="button" onclick="submitClass()">Submit</button>
@@ -73,8 +77,8 @@
                         <td id="math53">MATH 53</td>
                     </tr>
                 </table>
-            <h2>CORE</h2>
-                <table class="class_table table" id="coreTab">
+                <h2>CORE</h2>
+                <table class="class_table" id="coreTab">
                     <tr>
                         <td id="ctw1">CTW 1</td>
                         <td id="ctw2">CTW 2</td>
