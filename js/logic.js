@@ -861,16 +861,29 @@ function removeClass(classCode) {
 function configList() {
 
   var classCode;
-    for (var i = 0; i < enteredClasses.length; i++) {
-      classCode = enteredClasses[i].classCode;
-      if ($("#"+classCode+"_").length) {
-        $("#"+classCode+"_").append(", "+enteredClasses[i].req);
-      }
-      else {
-        var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + ": " + enteredClasses[i].req + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
-        $("ul").append(htmlString);
+  var patt;
+  var res;
+  var str;
+
+
+  for (var i = 0; i < enteredClasses.length; i++) {
+    classCode = enteredClasses[i].classCode;
+    req = enteredClasses[i].req;
+    patt = new RegExp(req);
+    console.log(patt);
+    if ($("#"+classCode+"_").length) {
+      str = $("#"+classCode+"_").html()
+      console.log("str: " + str);
+      console.log("test(): " + patt.test(str));
+      if (!patt.test(str)) {
+        $("#"+classCode+"_").append(", "+req);
       }
     }
+    else {
+      var htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
+      $("ul").append(htmlString);
+    }
+  }
 }
 
 function configReq() {
