@@ -781,7 +781,7 @@ function submitClass() {
       return false;
   }
   // Remove whitespace in submitted text and convert to lowercase
-  var classCode = myTrim(textField).toLowerCase();
+  var classCode = trimWhitespace(textField).toLowerCase();
 
   var dept = classCode.substring(0,4);
   var num = classCode.substring(4);
@@ -802,54 +802,135 @@ function submitClass() {
 }
 
 // Removes all whitespace from input text
-function myTrim(x) {
+function trimWhitespace(x) {
     return x.replace(/\s/g,'')
 }
 
-// Adds class to global list and colors corresponding box
-function addClass(classCode, req){
-    var newClass = {};
-
-    // construct object to push into global list
-    newClass.classCode = classCode;
-    newClass.req = req;
-    // change color to green
-    if (req != "elective") {
-      $("#"+req).css("background-color", "#81C784");
-    }
-    // if class isn't already in global, print on page
-    if (!classFound(classCode)){
-      var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
-      $("ul").append(htmlString);
-    }
-    // finally push into global list
-    enteredClasses.push(newClass);
-    checkElective();
+function addClass(classCode, req) {
+  var newClass = {};
+  newClass.classCode = classCode;
+  newClass.req = req;
+  newClass.used = false;
+  enteredClasses.push(newClass);
+  configList();
+  configReq();
+  configElective();
+  configEnrichment();
 }
-// Removes class from global list
+
+// // Adds class to global list and colors corresponding box
+// function addClass(classCode, req){
+//     var newClass = {};
+//
+//     // construct object to push into global list
+//     newClass.classCode = classCode;
+//     newClass.req = req;
+//     newClass.used = false;
+//     // change color to green
+//     if (req != "elective") {
+//       $("#"+req).css("background-color", "#81C784");
+//     }
+//     // if class isn't already in global, print on page
+//     if (!classFound(classCode)){
+//       var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+//       $("ul").append(htmlString);
+//     }
+//     // finally push into global list
+//     enteredClasses.push(newClass);
+//     configElective();
+// }
+
 function removeClass(classCode) {
-    var checkReq;
-    for (var i = 0; i < enteredClasses.length; i++){
-        if (enteredClasses[i].classCode == classCode){
-            checkReq = enteredClasses[i].req;
-            enteredClasses.splice(i, 1); // Remove element from array
-            if (!reqFound(checkReq)){
-                $("#"+checkReq).css("background-color", "lightgray");
-            }
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].classCode == classCode) {
+      enteredClasses.splice(i,1);
+      if (classFound(classCode)) {
+        removeClass(classCode);
+      }
+      else {
+        $("#"+classCode+"_").remove();
+        configList();
+        configReq();
+        configElective();
+        configEnrichment();
+      }
+    }
+  }
+}
 
-            if (classFound(classCode)){
-              removeClass(classCode);
-            }
-            // remove classCode off page
-            else {
-              $("#"+classCode+"_").remove();
-              if (checkReq == "elective") {
-                checkElective();
-              }
-            }
-        }
+function configList() {
+
+  var classCode;
+    for (var i = 0; i < enteredClasses.length; i++) {
+      classCode = enteredClasses[i].classCode;
+      if ($("#"+classCode+"_").length) {
+        $("#"+classCode+"_").append(", "+enteredClasses[i].req);
+      }
+      else {
+        var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + ": " + enteredClasses[i].req + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+        $("ul").append(htmlString);
+      }
     }
 }
+
+function configReq() {
+
+  for (var i = 0; i < enteredClasses.length; i++) {
+    $("#"+enteredClasses[i].req).css('background-color', 'limegreen');
+  }
+}
+
+function configEnrichment() {
+
+}
+
+function countReq(classCode) {
+  var count = 0;
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].classCode == classCode) {
+      count++;
+    }
+  }
+  return count;
+}
+
+function getLabel(classCode) {
+  var dept = classCode.substring(0,4);
+  var num = classCode.substring(4);
+
+  for (var i = 0; i < data.classes.length; i++) {
+    if (data.classes[i].dept == dept && data.classes[i].no == num) {
+      return data.classes[i].label;
+    }
+  }
+
+  console.log("Error: countReq() - Label not found");
+}
+
+// Removes class from global list
+// function removeClass(classCode) {
+//     var checkReq;
+//     for (var i = 0; i < enteredClasses.length; i++){
+//         if (enteredClasses[i].classCode == classCode){
+//             checkReq = enteredClasses[i].req;
+//             enteredClasses.splice(i, 1); // Remove element from array
+//             if (!reqFound(checkReq)){
+//                 $("#"+checkReq).css("background-color", "lightgray");
+//             }
+//
+//             if (classFound(classCode)){
+//               removeClass(classCode);
+//             }
+//             // remove classCode off page
+//             else {
+//               $("#"+classCode+"_").remove();
+//               if (checkReq == "elective") {
+//                 checkElective();
+//               }
+//             }
+//         }
+//     }
+// }
 
 // Is the requirement present in the global list?
 function reqFound(req) {
@@ -903,7 +984,7 @@ function save(){
     });
 }
 
-function checkElective() {
+function configElective() {
 
   var count = 0;
   for (var i = 0; i < enteredClasses.length; i++) {
@@ -915,16 +996,21 @@ function checkElective() {
 
   if (count >= 3) {
     $("#elective").css("background-color", "limegreen");
+    $("#elective").html("COEN ELECTIVES (3)");
     return true;
+  }
+  else if (count > 0 && count < 3) {
+    $("#elective").css("background-color", "#f4f142");
+    $("#elective").html("COEN ELECTIVES ("+count+")");
   }
   else {
     $("#elective").css("background-color", "lightgray");
-    return false;
+    $("#elective").html("COEN ELECTIVES (0)");
   }
 }
 
 function reconfigArray() {
   for (var i = 0; i < enteredClasses.length; i++) {
-    enteredClasses[i].used = false; 
+    enteredClasses[i].used = false;
   }
 }
