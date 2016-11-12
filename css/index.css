@@ -1,3 +1,14 @@
+#class_input_form{
+    text-align: center;
+}
+
+.header{
+    font-family: 'Roboto', sans-serif;
+    text-rendering: optimizelegibility;
+    font-weight: bold;
+    text-align: center;
+}
+
 #title
 {
     text-align: center;
@@ -9,108 +20,26 @@
 
 #majorTab {
     position: relative;
-    left: 15px;
-  width: 95%;
-  max-width: 100%;
-  margin-bottom: 2rem;
-  background-color: @table-bg;
-  > thead,
-  > tbody,
-  > tfoot {
-    > tr {
-      .transition(all .3s ease);
-      > th,
-      > td {
-        text-align: left;
-        padding: @table-cell-padding;
-        vertical-align: top;
-        border-top: 1px solid rgba(0,0,0,.12);
-        .transition(all .3s ease);
-      }
-    }
-  }
-  > thead > tr > th {
-    font-weight: @table-header-font-weight;
-    color: @table-header-font-color;
-    vertical-align: bottom;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-  }
-  > caption + thead,
-  > colgroup + thead,
-  > thead:first-child {
-    > tr:first-child {
-      > th,
-      > td {
-        border-top: 1px solid black;
-      }
-    }
-  }
-  > tbody + tbody {
-    border-top: 1px solid rgba(0,0,0,.12);
-  }
-
-  // Nesting
-  .table {
-    background-color: @table-bg;
-  }
-
-  // Remove border
-  .no-border {
-    border: 0;
-  }
+    left: 12px;
+    width: 95%;
+    max-width: 100%;
+    margin-bottom: 2rem;
+    border-top: 1px solid black;
+    white-space: nowrap;
 }
 
 #coreTab {
     position: relative;
-    left: 15px;
-  width: 95%;
-  max-width: 100%;
-  margin-bottom: 2rem;
-  background-color: @table-bg;
-  > thead,
-  > tbody,
-  > tfoot {
-    > tr {
-      .transition(all .3s ease);
-      > th,
-      > td {
-        text-align: left;
-        padding: @table-cell-padding;
-        vertical-align: top;
-        border-top: 1px solid rgba(0,0,0,.12);
-        .transition(all .3s ease);
-      }
-    }
-  }
-  > thead > tr > th {
-    font-weight: @table-header-font-weight;
-    color: @table-header-font-color;
-    vertical-align: bottom;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-  }
-  > caption + thead,
-  > colgroup + thead,
-  > thead:first-child {
-    > tr:first-child {
-      > th,
-      > td {
-        border-top: 1px solid rgba(0,0,0,.12);
-      }
-    }
-  }
-  > tbody + tbody {
-    border-top: 1px solid rgba(0,0,0,.12);
-  }
+    left: 12px;
+    width: 95%;
+    max-width: 100%;
+    margin-bottom: 2rem;
+    border-top: 1px solid black;
+    white-space: nowrap;
+}
 
-  // Nesting
-  .table {
-    background-color: @table-bg;
-  }
-
-  // Remove border
-  .no-border {
-    border: 0;
-  }
+#entered_class{
+    margin-bottom: 25px;
 }
 
 #left_side{
@@ -123,7 +52,7 @@
     float:right;
     width: 45%;
     border:1px solid black;
-    background: #f7f7f7
+    background: #f7f7f7;
 }
 #container{
     width: 100%;
@@ -134,20 +63,30 @@
     width: 50%;
     background-color: lightgray;
 }
+
+#class_list_title{
+
+}
 #class_list{
     list-style-type: none;
+    text-align: center;
 }
 #save{
     background-image: linear-gradient(to bottom, #08c, #04c);
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
     border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    position: relative;
+    left: 20px;
+    margin-bottom: 10px;
 }
 #newSession{
     background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
     border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    position: relative;
+    left: 20px;
 }
 table, td {
    border: 1px solid black;

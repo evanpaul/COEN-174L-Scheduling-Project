@@ -793,6 +793,7 @@ function submitClass() {
         for (var i = 0; i < reqs.length; i++) {
           addClass(classCode, reqs[i].name);
         }
+        document.getElementById("entered_class").value = "";
         return false;
     }
   }

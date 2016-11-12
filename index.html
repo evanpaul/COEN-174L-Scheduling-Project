@@ -19,16 +19,16 @@
         </div>
         <div id="container">
             <div id="left_side">
-                <h2 class="panel-title">Enter a class</h2>
-                <form>
+                <h2 class="panel-title header">Enter a class</h2>
+                <form id"class_input_form">
                     <input type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
                     <button type="button" onclick="submitClass()">Submit</button>
                 </form>
-                <h2>Entered Courses:</h2>
+                <h2 class="header" id="class_list_title">Entered Courses:</h2>
                 <ul id="class_list"></ul>
             </div>
             <div id="right_side">
-                <h2>Major Requirements</h2>
+                <h2 class="header">Major Requirements</h2>
                 <table class="class_table table" id="majorTab">
                     <tr>
                         <td id="engr1">ENGR 1</td>
@@ -75,9 +75,10 @@
                     <tr>
                         <td id="amth108">AMTH 108</td>
                         <td id="math53">MATH 53</td>
+                        <td id="elective">COEN ELECTIVES (3)</td>
                     </tr>
                 </table>
-            <h2>CORE</h2>
+            <h2 class="header">CORE</h2>
                 <table class="class_table table" id="coreTab">
                     <tr>
                         <td id="ctw1">CTW 1</td>
@@ -96,10 +97,9 @@
                     <tr>
                         <td id="socsci">SOC. SCIENCE</td>
                         <td id="elsj">ELSJ</td>
-                        <td id="elective">COEN ELECTIVES (3)</td>
                     </tr>
                 </table>
-                <h2>Educational Enrich.</h2>
+                <h2 class="header">Educational Enrich.</h2>
                 <div id="eduEnrich" onclick="changeState()">Not Complete</div>
             </div>
         </div>
