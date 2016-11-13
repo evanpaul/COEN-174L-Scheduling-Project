@@ -885,7 +885,7 @@ function changeState() {
     else {
       var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
       $("ul").append(htmlString);
-      $("#eduEnrich").css("background-color", "limegreen");
+      $("#eduEnrich").css("background-color", "#81C784");
       $("#eduEnrich").html("Complete");
       eduFlag = true;
     }

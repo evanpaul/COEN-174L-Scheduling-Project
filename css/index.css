@@ -1,5 +1,10 @@
+.btn-group{
+    margin: 0px auto;
+}
+
 #class_input_form{
     text-align: center;
+    margin: 0px auto;
 }
 
 .header{
@@ -40,6 +45,11 @@
 
 #entered_class{
     margin-bottom: 25px;
+    margin: auto;
+}
+
+#submitButton{
+    margin: auto;
 }
 
 #left_side{
