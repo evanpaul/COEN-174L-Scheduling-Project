@@ -716,7 +716,6 @@ function getID(){
     });
     return queryDict["id"];
 }
-// Bug: only adding educational enrichment won't save because classes are empty
 function populate(){
     var id = getID();
     if(id == undefined){
@@ -729,11 +728,15 @@ function populate(){
         url: "php/get.php",
         data: {"id": id},
         success: function(d){
-            console.log("get.php returned: " + d);
-            if(d == "INVALID"){ // Invalid ID entered
+            console.log("get.php returned: ");
+            console.log(d);
+
+            // Invalid ID entered
+            if(d == "INVALID"){
                 window.location = "error.html";
             }
-            if(d != "NULL"){ // If session exists
+            // If session exists
+            if(d != "NULL"){
                 var json = JSON.parse(d);
                 var eduFlag = (json.eduFlag === "true"); // String => Boolean
 
@@ -741,7 +744,7 @@ function populate(){
                 for (var i = 0; i < json.classes.length; i++){
                     var classCode = json.classes[i].classCode;
                     var req = json.classes[i].req;
-                    addClass(classCode, req);
+                    addClass(classCode, req, disableSave=true);
                 }
                 // Color educational enrichment
                 if(eduFlag){
@@ -755,7 +758,11 @@ function populate(){
             }else{
                 console.log("No existing session detected!");
             }
-
+        },
+        // In case of a failure...
+        error: function(jq, statusText, e){
+            console.log(e);
+            console.log(statusText);
         }
     })
 }
@@ -806,7 +813,7 @@ function trimWhitespace(x) {
     return x.replace(/\s/g,'')
 }
 
-function addClass(classCode, req) {
+function addClass(classCode, req, disableSave=false) {
   var newClass = {};
   newClass.classCode = classCode;
   newClass.req = req;
@@ -816,6 +823,10 @@ function addClass(classCode, req) {
   configReq();
   configElective();
   configEnrichment();
+  // Used with populate() call. no sense in saving what you just loaded
+  if(!disableSave){
+      save();
+  }
 }
 
 // // Adds class to global list and colors corresponding box
@@ -854,6 +865,7 @@ function removeClass(classCode) {
         configElective();
         configEnrichment();
       }
+      save();
     }
   }
 }
