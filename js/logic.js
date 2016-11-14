@@ -936,9 +936,7 @@ function configEnrichment() {
 
   // set all classes.used to "false", clear enrichList
   reconfigArray();
-  console.log("reconfigArray() called");
   $("#enrichList").empty();
-  console.log("list emptied");
 
   console.table(enteredClasses);
 
@@ -948,10 +946,13 @@ function configEnrichment() {
       markTrue(enteredClasses[i].classCode);
     }
   }
-  console.log("double dips checked");
   console.table(enteredClasses);
   for (j = 0; j < enteredClasses.length; j++) {
     console.log(j, enteredClasses[j]);
+    // pass over electives
+    if (enteredClasses[j].req == "elective") {
+      continue;
+    }
     if (enteredClasses[j].used == false) {
         if (!reqFulfilled(enteredClasses[j].req)) {
           markTrue(enteredClasses[j].classCode);
