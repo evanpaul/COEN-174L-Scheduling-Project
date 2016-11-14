@@ -940,6 +940,8 @@ function configEnrichment() {
   $("#enrichList").empty();
   console.log("list emptied");
 
+  console.table(enteredClasses);
+
   // go through and find double dips first
   for (i = 0; i < enteredClasses.length; i++) {
     if (countReq(enteredClasses[i].classCode) > 1) {
@@ -947,20 +949,20 @@ function configEnrichment() {
     }
   }
   console.log("double dips checked");
-
+  console.table(enteredClasses);
   for (j = 0; j < enteredClasses.length; j++) {
-    if (enteredClasses[i].used == false) {
-        if (!reqFulfilled(enteredClasses[i].req)) {
-          markTrue(enteredClasses[i].classCode);
+    console.log(j, enteredClasses[j]);
+    if (enteredClasses[j].used == false) {
+        if (!reqFulfilled(enteredClasses[j].req)) {
+          markTrue(enteredClasses[j].classCode);
         }
         else {
-          htmlString = "<li id ='"+enteredClasses[j].classCode+"_ee'>" + getLabel(enteredClasses[i].classCode) + "</li>";
+          htmlString = "<li id ='"+enteredClasses[j].classCode+"_ee'>" + getLabel(enteredClasses[j].classCode) + "</li>";
           $("#enrichList").append(htmlString);
         }
     }
   }
 }
-
 function markTrue(classCode) {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].classCode == classCode) {
