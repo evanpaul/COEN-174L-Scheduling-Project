@@ -716,24 +716,28 @@ function getID(){
     });
     return queryDict["id"];
 }
-// Bug: only adding educational enrichment won't save because classes are empty
 function populate(){
     var id = getID();
     if(id == undefined){
         newSession(confirmFlag=false);
         return false;
     }
+    $("#session").text(id);
     console.log("Begin population..." + id);
     $.ajax({
         type:"GET",
         url: "php/get.php",
         data: {"id": id},
         success: function(d){
-            console.log("get.php returned: " + d);
-            if(d == "INVALID"){ // Invalid ID entered
+            console.log("get.php returned: ");
+            console.log(d);
+
+            // Invalid ID entered
+            if(d == "INVALID"){
                 window.location = "error.html";
             }
-            if(d != "NULL"){ // If session exists
+            // If session exists
+            if(d != "NULL"){
                 var json = JSON.parse(d);
                 var eduFlag = (json.eduFlag === "true"); // String => Boolean
 
@@ -741,7 +745,7 @@ function populate(){
                 for (var i = 0; i < json.classes.length; i++){
                     var classCode = json.classes[i].classCode;
                     var req = json.classes[i].req;
-                    addClass(classCode, req);
+                    addClass(classCode, req, disableSave=true);
                 }
                 // Color educational enrichment
                 if(eduFlag){
@@ -755,7 +759,11 @@ function populate(){
             }else{
                 console.log("No existing session detected!");
             }
-
+        },
+        // In case of a failure...
+        error: function(jq, statusText, e){
+            console.log(e);
+            console.log(statusText);
         }
     })
 }
@@ -801,16 +809,13 @@ function submitClass() {
   alert("The text you entered doesn't match any classes that fulfill a requirement");
   return false;
 }
-
 // Removes all whitespace from input text
 function trimWhitespace(x) {
     return x.replace(/\s/g,'')
 }
 
-// Function to add a class to the global array
-function addClass(classCode, req) {
 
-  // create new object and push
+function addClass(classCode, req, disableSave=false) {
   var newClass = {};
   newClass.classCode = classCode;
   newClass.req = req;
@@ -822,6 +827,10 @@ function addClass(classCode, req) {
   configReq();
   configElective();
   configEnrichment();
+  // Used with populate() call. no sense in saving what you just loaded
+  if(!disableSave){
+      save();
+  }
 }
 
 // Function to remove a class
@@ -847,6 +856,7 @@ function removeClass(classCode) {
         configElective();
         configEnrichment();
       }
+      save();
     }
   }
 }
@@ -868,7 +878,6 @@ function configList() {
     classCode = enteredClasses[i].classCode;
     req = enteredClasses[i].req;
     patt = new RegExp(req);
-    console.log(patt);
 
     // case: if the class is already in the list
     if ($("#"+classCode+"_").length) {
@@ -1055,7 +1064,7 @@ function save(){
         url: "php/post.php",
         data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
-            console.log("Session succesfully saved! (maybe)");
+            console.log("Session succesfully saved!");
         }
     });
 }
