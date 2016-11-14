@@ -733,9 +733,9 @@ function populate(){
             if(d == "INVALID"){ // Invalid ID entered
                 window.location = "error.html";
             }
-            if(d != "null"){ // If session exists
+            if(d != "NULL"){ // If session exists
                 var json = JSON.parse(d);
-                var eduFlag = (json.eduFlag === "true");
+                var eduFlag = (json.eduFlag === "true"); // String => Boolean
 
                 // Loop through received list of classes and add to global list with requirements fulfilled
                 for (var i = 0; i < json.classes.length; i++){
@@ -990,7 +990,7 @@ function save(){
         url: "php/post.php",
         data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
-            console.log("Session succesfully* saved!");
+            console.log("Session succesfully saved! (maybe)");
         }
     });
 }
