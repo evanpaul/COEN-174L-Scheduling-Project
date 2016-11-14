@@ -722,6 +722,7 @@ function populate(){
         newSession(confirmFlag=false);
         return false;
     }
+    $("#session").text(id);
     console.log("Begin population..." + id);
     $.ajax({
         type:"GET",
@@ -807,7 +808,6 @@ function submitClass() {
   alert("The text you entered doesn't match any classes that fulfill a requirement");
   return false;
 }
-
 // Removes all whitespace from input text
 function trimWhitespace(x) {
     return x.replace(/\s/g,'')
@@ -882,11 +882,8 @@ function configList() {
     classCode = enteredClasses[i].classCode;
     req = enteredClasses[i].req;
     patt = new RegExp(req);
-    console.log(patt);
     if ($("#"+classCode+"_").length) {
       str = $("#"+classCode+"_").html()
-      console.log("str: " + str);
-      console.log("test(): " + patt.test(str));
       if (!patt.test(str)) {
         $("#"+classCode+"_").append(", "+req);
       }
@@ -1004,7 +1001,7 @@ function save(){
         url: "php/post.php",
         data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
-            console.log("Session succesfully saved! (maybe)");
+            console.log("Session succesfully saved!");
         }
     });
 }

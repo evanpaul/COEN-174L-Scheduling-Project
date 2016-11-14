@@ -3,19 +3,18 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css">
         <script type="text/javascript" src="resources/jquery.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/logic.js"></script>
         <title>SCU Degree Progress Tracker</title>
     </head>
     <body onload="populate()">
         <div class="page-header" id="header">
             <h1>SCU Degree Progress Tracker</h1>
-            <div class="btn-group" role="group">
-              <button class="btn btn-default" id="save" onclick="save()"type="button">Save progress</button>
-              <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
-            </div>
+            <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
+            <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
         </div>
         <div id="container">
             <div id="left_side">
