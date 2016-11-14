@@ -790,8 +790,8 @@ function submitClass() {
     // If found, get requirements and call addClass()
     if(dept == data.classes[i].dept && num == data.classes[i].no) {
         var reqs = getReq(classCode);
-        for (var i = 0; i < reqs.length; i++) {
-          addClass(classCode, reqs[i].name);
+        for (var j = 0; j < reqs.length; j++) {
+          addClass(classCode, reqs[j].name);
         }
         return false;
     }
@@ -859,6 +859,9 @@ function configList() {
   var res;
   var str;
 
+  // clear classList and restart
+  $("#classList").empty();
+
   // for each class, print in list with requirements met
   for (var i = 0; i < enteredClasses.length; i++) {
     classCode = enteredClasses[i].classCode;
@@ -925,6 +928,45 @@ function configElective() {
 // classes that aren't being used towards a req fit here
 function configEnrichment() {
 
+  var i, j;
+
+  // set all classes.used to "false", clear enrichList
+  reconfigArray();
+  $("#enrichList").empty();
+
+  for (i = 0; i < enteredClasses.length; i++) {
+    if (countReq(enteredClasses[i].classCode) > 1) {
+      markTrue(enteredClasses[i].classCode);
+    }
+  }
+
+  for (j = 0; j < enteredClasses.length; j++) {
+    if (enteredClasses[i].used == false && !reqFulfilled(enteredClasses[i].req)) {
+      markTrue(enteredClasses[i].classCode);
+    }
+    else {
+      htmlString = "<li id ='"+classCode+"_ee'>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
+      $("#enrichList").append(htmlString);
+    }
+  }
+
+}
+
+function markTrue(classCode) {
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].classCode == classCode) {
+      enteredClasses[i].used = true;
+    }
+  }
+}
+
+function reqFulfilled(req) {
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].req == req && enteredClasses[i].used == true) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // function returns the number of reqs a class fulfills
