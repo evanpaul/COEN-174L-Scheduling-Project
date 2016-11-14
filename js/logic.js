@@ -774,7 +774,7 @@ function getReq(classCode){
 
 // Submit user's inputted classcode
 function submitClass() {
-// Catch enter key?
+  // Catch enter key?
   var textField = $("#entered_class").val();
   if(!textField) {
       alert("Please enter a course!");
@@ -793,7 +793,7 @@ function submitClass() {
         for (var j = 0; j < reqs.length; j++) {
           addClass(classCode, reqs[j].name);
         }
-        return false;
+        return true;
     }
   }
   // Case: not valid class
@@ -932,27 +932,27 @@ function configElective() {
 // classes that aren't being used towards a req fit here
 function configEnrichment() {
 
-  var i, j;
-
-  // set all classes.used to "false", clear enrichList
-  reconfigArray();
-  $("#enrichList").empty();
-
-  for (i = 0; i < enteredClasses.length; i++) {
-    if (countReq(enteredClasses[i].classCode) > 1) {
-      markTrue(enteredClasses[i].classCode);
-    }
-  }
-
-  for (j = 0; j < enteredClasses.length; j++) {
-    if (enteredClasses[i].used == false && !reqFulfilled(enteredClasses[i].req)) {
-      markTrue(enteredClasses[i].classCode);
-    }
-    else {
-      htmlString = "<li id ='"+classCode+"_ee'>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
-      $("#enrichList").append(htmlString);
-    }
-  }
+  // var i, j;
+  //
+  // // set all classes.used to "false", clear enrichList
+  // reconfigArray();
+  // $("#enrichList").empty();
+  //
+  // for (i = 0; i < enteredClasses.length; i++) {
+  //   if (countReq(enteredClasses[i].classCode) > 1) {
+  //     markTrue(enteredClasses[i].classCode);
+  //   }
+  // }
+  //
+  // for (j = 0; j < enteredClasses.length; j++) {
+  //   if (enteredClasses[i].used == false) {
+  //       if (!reqFulfilled(enteredClasses[i].req)) {
+  //         markTrue(enteredClasses[i].classCode);
+  //       } else {
+  //         htmlString = "<li id ='"+classCode+"_ee'>" + getLabel(enteredClasses[i].classCode) + "</li>";
+  //         $("#enrichList").append(htmlString);
+  //       }
+  //   }
 
 }
 
@@ -1020,7 +1020,7 @@ function classFound(classCode) {
   }
   return false;
 }
-// // Change state of educational enrichment
+// Change state of educational enrichment
 // function changeState() {
 //     if($("#eduEnrich").html() == "Complete") {
 //       $("#eduEnrich_").remove();
@@ -1037,6 +1037,7 @@ function classFound(classCode) {
 //       eduFlag = true;
 //     }
 // }
+
 // POST classes to JSON file via AJAX
 function save(){
     var id = getID();
