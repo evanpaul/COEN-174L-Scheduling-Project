@@ -47,6 +47,7 @@
 #entered_class{
     margin-bottom: 25px;
     margin: auto;
+    width: 200px;
 }
 
 #submitButton{
