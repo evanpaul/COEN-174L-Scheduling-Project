@@ -1,3 +1,24 @@
+#class_input_`form`{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    background-color: red;
+    width: 30%;
+}
+#entered_class{
+    order: 1;
+}
+#submitButton{
+    order: 2;
+    width: 100%;
+    min-width: 20em;
+}
+#enter{
+    margin: 0px;
+}
+#entered{
+    margin: 0px;
+}
 #sessionBox{
     width: 80%;
     margin:0 auto;
@@ -5,7 +26,7 @@
 #header{
     text-align: center;
     margin: 0px auto;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 .header{
     font-family: 'Roboto', sans-serif;
@@ -25,7 +46,7 @@
 #title
 {
     text-align: center;
-    color: #81C784;
+    color: #1cdb4f;
     font-family: 'Roboto', sans-serif;
     text-rendering: optimizelegibility;
     font-size: 4em;
@@ -51,26 +72,20 @@
     white-space: nowrap;
 }
 
-#entered_class{
-    margin-bottom: 25px;
-    margin: auto;
-}
 
-#submitButton{
-    margin: auto;
-}
+
 #left_side{
     order: 1;
     width: 54%; /*45?*/
-    border:1px solid black;
-    padding: 5px;
+    /*border:1px solid black;*/
+    padding: 0px;
 }
 #right_side{
     order:2;
     width: 45%;
-    border:1px solid black;
+    /*border:1px solid black;*/
     background: #f7f7f7;
-    padding: 5px;
+    padding: 0px;
 }
 #container{
     width: 100%;
@@ -96,12 +111,12 @@
     margin-bottom: 10px;
 }
 #newSession{
-    background-image: linear-gradient(to bottom, #81C784, ##377E27);
+    background-image: linear-gradient(to bottom, #1cdb4f, ##377E27);
     color: black;
     border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
     position: relative;
     left: 20px;
-    background-color:#81C784;
+    background-color:#1cdb4f;
 }
 table, td {
    border: 1px solid black;
