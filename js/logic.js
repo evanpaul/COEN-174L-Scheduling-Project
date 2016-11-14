@@ -889,8 +889,8 @@ function configList() {
     }
     // case: class not in list, create list item
     else {
-      var htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
-      $("#classList").append(htmlString);
+      var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + " <em>(" + enteredClasses[i].req + ")</em>   <button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+      $("#class_list_title").append(htmlString);
     }
   }
 }
