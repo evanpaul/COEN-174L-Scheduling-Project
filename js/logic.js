@@ -888,6 +888,10 @@ function configList() {
 // function to restylize reqs fulfilled
 function configReq() {
 
+  // turn all boxes lightgray first
+  $("td").css('background-color', 'lightgray');
+
+  // turn all fulfilled reqs to green
   for (var i = 0; i < enteredClasses.length; i++) {
     $("#"+enteredClasses[i].req).css('background-color', 'limegreen');
   }
@@ -1016,23 +1020,23 @@ function classFound(classCode) {
   }
   return false;
 }
-// Change state of educational enrichment
-function changeState() {
-    if($("#eduEnrich").html() == "Complete") {
-      $("#eduEnrich_").remove();
-      $("#eduEnrich").css("background-color", "lightgray");
-      $("#eduEnrich").html("Not Complete");
-      eduFlag = false;
-    }
-
-    else {
-      var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
-      $("ul").append(htmlString);
-      $("#eduEnrich").css("background-color", "limegreen");
-      $("#eduEnrich").html("Complete");
-      eduFlag = true;
-    }
-}
+// // Change state of educational enrichment
+// function changeState() {
+//     if($("#eduEnrich").html() == "Complete") {
+//       $("#eduEnrich_").remove();
+//       $("#eduEnrich").css("background-color", "lightgray");
+//       $("#eduEnrich").html("Not Complete");
+//       eduFlag = false;
+//     }
+//
+//     else {
+//       var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
+//       $("ul").append(htmlString);
+//       $("#eduEnrich").css("background-color", "limegreen");
+//       $("#eduEnrich").html("Complete");
+//       eduFlag = true;
+//     }
+// }
 // POST classes to JSON file via AJAX
 function save(){
     var id = getID();
