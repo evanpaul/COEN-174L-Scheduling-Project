@@ -12,14 +12,14 @@
     <body onload="populate()">
         <h1 id="title">SCU Degree Progress Tracker</h1>
         <div class="page-header" id="header">
-            <div class="btn-group" role="group">
+            <div id="buttons" class="btn-group" role="group">
               <button class="btn btn-default" id="save" onclick="save()" type="button">Save progress</button>
               <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
             </div>
         </div>
         <div id="container">
             <div id="left_side">
-                <h2 class="panel-title header">Enter a class</h2>
+                <h2 class="panel-title header firstHeader">Enter a class</h2>
                 <form id="class_input_form">
                     <input class="form_element" type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
                     <button class="form_element" type="button" id="submitButton" onclick="submitClass()">Submit</button>
@@ -28,7 +28,7 @@
                 <ul id="class_list"></ul>
             </div>
             <div id="right_side">
-                <h2 class="header">Major Requirements</h2>
+                <h2 class="header firstHeader">Major Requirements</h2>
                 <table class="class_table table" id="majorTab">
                     <tr>
                         <td id="engr1">ENGR 1</td>
