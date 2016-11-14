@@ -873,15 +873,13 @@ function configList() {
     console.log(patt);
     if ($("#"+classCode+"_").length) {
       str = $("#"+classCode+"_").html()
-      console.log("str: " + str);
-      console.log("test(): " + patt.test(str));
       if (!patt.test(str)) {
         $("#"+classCode+"_").append(", "+req);
       }
     }
     else {
       var htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
-      $("ul").append(htmlString);
+      $("#classList").append(htmlString);
     }
   }
 }
