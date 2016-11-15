@@ -883,7 +883,7 @@ function configList() {
 
     // case: if the class is already in the list
     if ($("#"+classCode+"_").length) {
-      str = $("#"+classCode+"_").html()
+      str = $("#"+classCode+"_r").html()
       // check if req is already printed
       if (!patt.test(str)) {
         $("#"+classCode+"_").append(", "+req);
