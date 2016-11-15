@@ -7,13 +7,12 @@ body{
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    width: 30%;
-}
-#class_list_title{
-    /*!*/
+    width: 50%;
+    background-color: red;
 }
 #entered_class{
     order: 1;
+    width:80%;
 }
 #submitButton{
     order: 2;

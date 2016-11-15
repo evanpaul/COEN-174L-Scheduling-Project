@@ -1,11 +1,6 @@
 # SCU Degree Progress Tracker
-## Known Bugs/Issues/TODO
-* ~~Educational Enrichment should be a bucket for classes that aren't filling any requirements~~
-* ~~[BUG] Educational enrichment shouldn't include COEN electives~~
-* ~~CGI script needs to be setup to fix permissions for DC server~~
-* ~~COEN electives should turn yellow and display current count~~
-* ~~There should be an explicit way of informing users what requirements are filled by each class (parentheses maybe?)~~
-* ~~Saving should be automatic perhaps?~~
+## Bugs
+* COEN elective counting issue (reproduce: type COEN161 twice in a row)
+## TODO
 * General styling improvements needed
-* ~~[BUG] System won't properly save when there are 0 classes~~
-* [BUG] COEN elective counting issue
+* Change tables to bootstrap grid
