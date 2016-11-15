@@ -820,7 +820,7 @@ function addClass(classCode, req){
     }
     // if class isn't already in global, print on page
     if (!classFound(classCode)){
-      var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+      var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button class='circle btn-sm' onclick='removeClass(\""+classCode+"\")'> x </button></li>";
       $("ul").append(htmlString);
     }
     // finally push into global list

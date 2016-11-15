@@ -10,26 +10,37 @@
         <script type="text/javascript" src="js/logic.js"></script>
     </head>
     <body onload="populate()">
-        <h1 id="title">SCU Degree Progress Tracker</h1>
+        <!-- <h1 id="title">SCU Degree Progress Tracker</h1>
         <div class="page-header" id="header">
             <div id="buttons" class="btn-group" role="group">
-              <button class="btn btn-default" id="save" onclick="save()" type="button">Save progress</button>
-              <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
+              <button class="btn btn-primary btn-sm" id="save" onclick="save()" type="button">Save progress</button>
+              <button class="btn btn-danger btn-sm" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
             </div>
-        </div>
+        </div> -->
         <div id="container">
             <div id="left_side">
+                <h1 id="title">SCU Degree Progress Tracker</h1>
+                <div class="page-header" id="header">
+
+                    <div id="buttons" class="btn-group" role="group">
+                      <button class="btn btn-primary btn-sm" id="save" onclick="save()" type="button">Save progress</button>
+                      <button class="btn btn-danger btn-sm" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
+                    </div>
+
+                </div>
+                <div id="line">
+                </div>
                 <h2 class="panel-title header firstHeader">Enter a class</h2>
                 <form id="class_input_form">
                     <input class="form_element" type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
-                    <button class="form_element" type="button" id="submitButton" onclick="submitClass()">Submit</button>
+                    <button class="form_element btn-sm" type="button" id="submitButton" onclick="submitClass()">Submit</button>
                 </form>
                 <h2 class="header" id="class_list_title">Entered Courses:</h2>
                 <ul id="class_list"></ul>
             </div>
             <div id="right_side">
                 <h2 class="header firstHeader">Major Requirements</h2>
-                <table class="class_table table" id="majorTab">
+                <table class="class_table table table-bordered" id="majorTab">
                     <tr>
                         <td id="engr1">ENGR 1</td>
                         <td id="coen10">COEN 10</td>
@@ -75,11 +86,11 @@
                     <tr>
                         <td id="amth108">AMTH 108</td>
                         <td id="math53">MATH 53</td>
-                        <td id="elective">COEN ELECTIVES (3)</td>
+                        <td id="elective">ELECTIVES (3)</td>
                     </tr>
                 </table>
             <h2 class="header">CORE</h2>
-                <table class="class_table table" id="coreTab">
+                <table class="class_table table table-bordered" id="coreTab">
                     <tr>
                         <td id="ctw1">CTW 1</td>
                         <td id="ctw2">CTW 2</td>
