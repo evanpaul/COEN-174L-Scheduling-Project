@@ -3,13 +3,20 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="css/index.css">
+<<<<<<< HEAD
         <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.css">
+=======
+>>>>>>> master
         <script type="text/javascript" src="resources/jquery.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/logic.js"></script>
     </head>
     <body onload="populate()">
+<<<<<<< HEAD
         <!-- <h1 id="title">SCU Degree Progress Tracker</h1>
         <div class="page-header" id="header">
             <div id="buttons" class="btn-group" role="group">
@@ -17,6 +24,13 @@
               <button class="btn btn-danger btn-sm" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
             </div>
         </div> -->
+=======
+        <div class="page-header" id="header">
+            <h1>SCU Degree Progress Tracker</h1>
+            <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
+            <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
+        </div>
+>>>>>>> master
         <div id="container">
             <div id="left_side">
                 <h1 id="title">SCU Degree Progress Tracker</h1>
@@ -35,8 +49,13 @@
                     <input class="form_element" type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
                     <button class="form_element btn-sm" type="button" id="submitButton" onclick="submitClass()">Submit</button>
                 </form>
+<<<<<<< HEAD
                 <h2 class="header" id="class_list_title">Entered Courses:</h2>
                 <ul id="class_list"></ul>
+=======
+                <h2>Entered Courses:</h2>
+                <ul id="classList"></ul>
+>>>>>>> master
             </div>
             <div id="right_side">
                 <h2 class="header firstHeader">Major Requirements</h2>
@@ -86,11 +105,19 @@
                     <tr>
                         <td id="amth108">AMTH 108</td>
                         <td id="math53">MATH 53</td>
+<<<<<<< HEAD
                         <td id="elective">ELECTIVES (3)</td>
                     </tr>
                 </table>
             <h2 class="header">CORE</h2>
                 <table class="class_table table table-bordered" id="coreTab">
+=======
+                        <td id="elective">ELECTIVES (0)</td>
+                    </tr>
+                </table>
+                <h2>CORE</h2>
+                <table class="class_table" id="coreTab">
+>>>>>>> master
                     <tr>
                         <td id="ctw1">CTW 1</td>
                         <td id="ctw2">CTW 2</td>
@@ -110,8 +137,13 @@
                         <td id="elsj">ELSJ</td>
                     </tr>
                 </table>
+<<<<<<< HEAD
                 <h2 class="header">Educational Enrich.</h2>
                 <div id="eduEnrich" onclick="changeState()">Not Complete</div>
+=======
+                <h2>Educational Enrich.</h2>
+                <ul id="enrichList"><ul>
+>>>>>>> master
             </div>
         </div>
     </body>

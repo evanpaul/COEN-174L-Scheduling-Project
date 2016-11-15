@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #line{
     border-top: 1px solid black;
     margin-left: 9px;
@@ -16,10 +17,18 @@
 
 #buttons.btn-group{
     margin: 0 auto;
+=======
+#sessionBox{
+    width: 175px;
+    margin:0 auto;
+}
+#header{
+>>>>>>> master
     text-align: center;
     width: inherit;
     display: inline-block;
 }
+<<<<<<< HEAD
 
 .firstHeader{
     margin-top: 10px;
@@ -91,14 +100,24 @@
     width: 54%;
     /*border:1px solid black;
     background: #f7f7f7;*/
+=======
+#left_side{
+    order: 1;
+    width: 45%;
+    padding: 5px;
+>>>>>>> master
 }
 #right_side{
     position: relative;
     top: 10px;
     float:right;
     width: 45%;
+<<<<<<< HEAD
     border:1px solid black;
     background: #f7f7f7;
+=======
+    padding: 5px;
+>>>>>>> master
 }
 #container{
     width: 100%;
@@ -118,6 +137,7 @@
     text-align: center;
 }
 #save{
+<<<<<<< HEAD
     /*background-image: linear-gradient(to bottom, #08c, #04c);
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
@@ -140,6 +160,12 @@
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 8px;
+=======
+    background-color:rgba(20, 243, 20, 0.80);
+}
+#newSession{
+    background-color:rgba(224, 15, 15, 0.80);
+>>>>>>> master
 }
 table, td {
    border: 1px solid black;

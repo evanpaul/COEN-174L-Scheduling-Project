@@ -716,32 +716,36 @@ function getID(){
     });
     return queryDict["id"];
 }
-// Bug: only adding educational enrichment won't save because classes are empty
 function populate(){
     var id = getID();
     if(id == undefined){
         newSession(confirmFlag=false);
         return false;
     }
+    $("#session").text(id);
     console.log("Begin population..." + id);
     $.ajax({
         type:"GET",
         url: "php/get.php",
         data: {"id": id},
         success: function(d){
-            console.log("get.php returned: " + d);
-            if(d == "INVALID"){ // Invalid ID entered
+            console.log("get.php returned: ");
+            console.log(d);
+
+            // Invalid ID entered
+            if(d == "INVALID"){
                 window.location = "error.html";
             }
-            if(d != "null"){ // If session exists
+            // If session exists
+            if(d != "NULL"){
                 var json = JSON.parse(d);
-                var eduFlag = (json.eduFlag === "true");
+                var eduFlag = (json.eduFlag === "true"); // String => Boolean
 
                 // Loop through received list of classes and add to global list with requirements fulfilled
                 for (var i = 0; i < json.classes.length; i++){
                     var classCode = json.classes[i].classCode;
                     var req = json.classes[i].req;
-                    addClass(classCode, req);
+                    addClass(classCode, req, disableSave=true);
                 }
                 // Color educational enrichment
                 if(eduFlag){
@@ -755,7 +759,11 @@ function populate(){
             }else{
                 console.log("No existing session detected!");
             }
-
+        },
+        // In case of a failure...
+        error: function(jq, statusText, e){
+            console.log(e);
+            console.log(statusText);
         }
     })
 }
@@ -774,82 +782,256 @@ function getReq(classCode){
 
 // Submit user's inputted classcode
 function submitClass() {
-// Catch enter key?
+  // Catch enter key?
   var textField = $("#entered_class").val();
-  if(!textField){
+  if(!textField) {
       alert("Please enter a course!");
       return false;
   }
   // Remove whitespace in submitted text and convert to lowercase
-  var classCode = myTrim(textField).toLowerCase();
+  var classCode = trimWhitespace(textField).toLowerCase();
 
   var dept = classCode.substring(0,4);
   var num = classCode.substring(4);
   // Check if valid class
-  for(var i = 0; i < data.classes.length; i++){
+  for(var i = 0; i < data.classes.length; i++) {
     // If found, get requirements and call addClass()
     if(dept == data.classes[i].dept && num == data.classes[i].no) {
         var reqs = getReq(classCode);
-        for (var i = 0; i < reqs.length; i++) {
-          addClass(classCode, reqs[i].name);
+        for (var j = 0; j < reqs.length; j++) {
+          addClass(classCode, reqs[j].name);
         }
+<<<<<<< HEAD
         document.getElementById("entered_class").value = "";
         return false;
+=======
+        return true;
+>>>>>>> master
     }
   }
   // Case: not valid class
   alert("The text you entered doesn't match any classes that fulfill a requirement");
   return false;
 }
-
 // Removes all whitespace from input text
-function myTrim(x) {
+function trimWhitespace(x) {
     return x.replace(/\s/g,'')
 }
 
-// Adds class to global list and colors corresponding box
-function addClass(classCode, req){
-    var newClass = {};
+// Function to add a class to the global array
+function addClass(classCode, req, disableSave=false) {
+  // create new object and push
+  var newClass = {};
+  newClass.classCode = classCode;
+  newClass.req = req;
+  newClass.used = false;
+  enteredClasses.push(newClass);
 
-    // construct object to push into global list
-    newClass.classCode = classCode;
-    newClass.req = req;
-    // change color to green
-    if (req != "elective") {
-      $("#"+req).css("background-color", "#81C784");
+  // call to reconfigure page and class list
+  configEnrichment();
+  configList();
+  configReq();
+  configElective();
+  // Used with populate() call. no sense in saving what you just loaded
+  if(!disableSave){
+      save();
+  }
+}
+
+// Function to remove a class
+function removeClass(classCode) {
+
+  // look for class in global array
+  for (var i = 0; i < enteredClasses.length; i++) {
+
+    // if found
+    if (enteredClasses[i].classCode == classCode) {
+
+      // remove from list, check if double dipper
+      enteredClasses.splice(i,1);
+      if (classFound(classCode)) {
+        // if double dipper, recursive call
+        removeClass(classCode);
+      }
+      // remove page, reconfigure
+      else {
+        $("#"+classCode+"_").remove();
+        configEnrichment();
+        configList();
+        configReq();
+        configElective();
+      }
+      save();
     }
+  }
+}
+
+// function to reprint the list of entered classes
+// and the requirements they fulfill on the page
+function configList() {
+
+  var classCode;
+  var patt;
+  var res;
+  var str, htmlString;
+
+  // clear classList and restart
+  $("#classList").empty();
+
+  // for each class, print in list with requirements met
+  for (var i = 0; i < enteredClasses.length; i++) {
+    classCode = enteredClasses[i].classCode;
+    req = enteredClasses[i].req;
+    patt = new RegExp(req);
+    // case: if the class is already in the list
+    if ($("#"+classCode+"_").length) {
+      str = $("#"+classCode+"_").html()
+      // check if req is already printed
+      if (!patt.test(str)) {
+        $("#"+classCode+"_").append(", "+req);
+      }
+    }
+<<<<<<< HEAD
     // if class isn't already in global, print on page
     if (!classFound(classCode)){
       var htmlString = "<li id ='"+classCode+"_'>" + classCode + "<button class='circle btn-sm' onclick='removeClass(\""+classCode+"\")'> x </button></li>";
       $("ul").append(htmlString);
+=======
+    // case: class not in list, create list item
+    else {
+      if ($("#"+classCode+"_ee").length) {
+        htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": Enrichment</li>";
+      }
+      else {
+        htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
+      }
+      $("#classList").append(htmlString);
+>>>>>>> master
     }
-    // finally push into global list
-    enteredClasses.push(newClass);
-    checkElective();
+  }
 }
-// Removes class from global list
-function removeClass(classCode) {
-    var checkReq;
-    for (var i = 0; i < enteredClasses.length; i++){
-        if (enteredClasses[i].classCode == classCode){
-            checkReq = enteredClasses[i].req;
-            enteredClasses.splice(i, 1); // Remove element from array
-            if (!reqFound(checkReq)){
-                $("#"+checkReq).css("background-color", "lightgray");
-            }
 
-            if (classFound(classCode)){
-              removeClass(classCode);
-            }
-            // remove classCode off page
-            else {
-              $("#"+classCode+"_").remove();
-              if (checkReq == "elective") {
-                checkElective();
-              }
-            }
+// function to restylize reqs fulfilled
+function configReq() {
+
+  // turn all boxes lightgray first
+  $("td").css('background-color', 'lightgray');
+
+  // turn all fulfilled reqs to green
+  for (var i = 0; i < enteredClasses.length; i++) {
+    $("#"+enteredClasses[i].req).css('background-color', 'limegreen');
+  }
+}
+
+// function to determine COEN elective status
+function configElective() {
+
+  var count = 0;
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].req == "elective") {
+      count++;
+      console.log(count);
+    }
+  }
+
+  // if 3 or more classes, turn green
+  if (count >= 3) {
+    $("#elective").css("background-color", "limegreen");
+    $("#elective").html("ELECTIVES (3)");
+    return true;
+  }
+
+  // if 1 or 2 classes, turn yellow
+  else if (count > 0 && count < 3) {
+    $("#elective").css("background-color", "#f4f142");
+    $("#elective").html("ELECTIVES ("+count+")");
+  }
+
+  // no classes
+  else {
+    $("#elective").css("background-color", "lightgray");
+    $("#elective").html("ELECTIVES (0)");
+  }
+}
+
+// function to reconfigure Educational Enrichment options list
+// classes that aren't being used towards a req fit here
+function configEnrichment() {
+
+  var i, j;
+
+  // set all classes.used to "false", clear enrichList
+  reconfigArray();
+  $("#enrichList").empty();
+
+  console.table(enteredClasses);
+
+  // go through and find double dips first
+  for (i = 0; i < enteredClasses.length; i++) {
+    if (countReq(enteredClasses[i].classCode) > 1) {
+      markTrue(enteredClasses[i].classCode);
+    }
+  }
+  console.table(enteredClasses);
+  for (j = 0; j < enteredClasses.length; j++) {
+    console.log(j, enteredClasses[j]);
+    // pass over electives
+    if (enteredClasses[j].req == "elective") {
+      continue;
+    }
+    if (enteredClasses[j].used == false) {
+        if (!reqFulfilled(enteredClasses[j].req)) {
+          markTrue(enteredClasses[j].classCode);
+        }
+        else {
+          htmlString = "<li id ='"+enteredClasses[j].classCode+"_ee'>" + getLabel(enteredClasses[j].classCode) + "</li>";
+          $("#enrichList").append(htmlString);
         }
     }
+  }
+}
+
+function markTrue(classCode) {
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].classCode == classCode) {
+      enteredClasses[i].used = true;
+    }
+  }
+}
+
+function reqFulfilled(req) {
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].req == req && enteredClasses[i].used == true) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// function returns the number of reqs a class fulfills
+function countReq(classCode) {
+  var count = 0;
+  for (var i = 0; i < enteredClasses.length; i++) {
+    if (enteredClasses[i].classCode == classCode) {
+      count++;
+    }
+  }
+  return count;
+}
+
+// function returns the 'label' attribute from the data object
+function getLabel(classCode) {
+  var dept = classCode.substring(0,4);
+  var num = classCode.substring(4);
+
+  // return label if classCode found
+  for (var i = 0; i < data.classes.length; i++) {
+    if (data.classes[i].dept == dept && data.classes[i].no == num) {
+      return data.classes[i].label;
+    }
+  }
+
+  console.log("Error: countReq() - Label not found");
 }
 
 // Is the requirement present in the global list?
@@ -874,14 +1056,24 @@ function classFound(classCode) {
   return false;
 }
 // Change state of educational enrichment
-function changeState() {
-    if($("#eduEnrich").html() == "Complete") {
-      $("#eduEnrich_").remove();
-      $("#eduEnrich").css("background-color", "lightgray");
-      $("#eduEnrich").html("Not Complete");
-      eduFlag = false;
-    }
+// function changeState() {
+//     if($("#eduEnrich").html() == "Complete") {
+//       $("#eduEnrich_").remove();
+//       $("#eduEnrich").css("background-color", "lightgray");
+//       $("#eduEnrich").html("Not Complete");
+//       eduFlag = false;
+//     }
+//
+//     else {
+//       var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
+//       $("ul").append(htmlString);
+//       $("#eduEnrich").css("background-color", "limegreen");
+//       $("#eduEnrich").html("Complete");
+//       eduFlag = true;
+//     }
+// }
 
+<<<<<<< HEAD
     else {
       var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
       $("ul").append(htmlString);
@@ -890,6 +1082,8 @@ function changeState() {
       eduFlag = true;
     }
 }
+=======
+>>>>>>> master
 // POST classes to JSON file via AJAX
 function save(){
     var id = getID();
@@ -899,27 +1093,13 @@ function save(){
         url: "php/post.php",
         data: {"id": id, "classes": enteredClasses, "eduFlag": eduFlag},
         success: function(d){
-            console.log("Session succesfully* saved!");
+            console.log("Session succesfully saved!");
         }
     });
 }
 
-function checkElective() {
-
-  var count = 0;
+function reconfigArray() {
   for (var i = 0; i < enteredClasses.length; i++) {
-    if (enteredClasses[i].req == "elective") {
-      count++;
-      console.log(count);
-    }
-  }
-
-  if (count >= 3) {
-    $("#elective").css("background-color", "limegreen");
-    return true;
-  }
-  else {
-    $("#elective").css("background-color", "lightgray");
-    return false;
+    enteredClasses[i].used = false;
   }
 }
