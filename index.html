@@ -7,11 +7,14 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/classes.js"></script>
         <script type="text/javascript" src="js/logic.js"></script>
     </head>
     <body onload="populate()">
-        <div class="header">
-            <h1 id="title">SCU Degree Progress Tracker</h1>
+        <div id="topHeader">
+            <div id="titleBox">
+                <h1 id="title">SCU Degree Progress Tracker</h1>
+            </div>
             <div id="subheader">
                 <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
                 <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
@@ -21,7 +24,7 @@
             <div id="left_side">
                 <div id="entered "class="panel panel-default">
                     <div id="class_list_title" class="panel-heading">
-                        <h2 style ="margin: 0 auto; width:80%; text-align: center;">Enter a course</h2>
+                        <h2 class ="header">Enter a course</h2>
                         <form id="class_input_form">
                             <input class="form_element" type="text" id="entered_class" placeholder="ex. 'COEN 10'"/>
                             <button class="form_element" type="button" id="submitButton" onclick="submitClass()">Submit</button>

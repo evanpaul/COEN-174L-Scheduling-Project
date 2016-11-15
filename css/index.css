@@ -39,24 +39,33 @@ body{
     background-color:#1cdb4f;
 }
 .header{
+    color: black;
     font-family: 'Roboto', sans-serif;
-    text-rendering: optimizelegibility;
     font-weight: bold;
     text-align: center;
     margin: 0;
 }
-body > .header{
-    margin-bottom: 5px;
-}
-
-#subheader{
-    margin: 0 auto;
+#topHeader{
     display: flex;
+    margin: 0;
+    margin-bottom: 5px;
     justify-content: center;
-    width: 10%;
+    align-items: flex-end;
 }
-#title
-{
+#titleBox{
+    order: 1;
+    width: 40%;
+    margin: 0;
+}
+#subheader{
+    margin: 0;
+    order: 2;
+    display: flex;
+    justify-content: space-between;
+    width: 15%;
+}
+#title{
+    margin: 0;
     text-align: center;
     color: #1cdb4f;
     font-family: 'Roboto', sans-serif;
@@ -119,14 +128,6 @@ body > .header{
 .class_table{
     margin: 0 !important;
 }
-/*
-table, td {
-   border: 1px solid black;
-}
-td{
-    background-color: lightgrey;
-}
-*/
 #eduEnrich{
     width: 150px;
     height: 50px;
