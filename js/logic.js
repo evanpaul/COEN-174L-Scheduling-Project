@@ -127,7 +127,7 @@ function trimWhitespace(x) {
     return x.replace(/\s/g,'')
 }
 
-function addClass(classCode, req, disableSave=false) {
+function addClass(classCode, req, disableSave=false){
   var newClass = {};
   newClass.classCode = classCode;
   newClass.req = req;
@@ -185,7 +185,7 @@ function configList() {
   var str, htmlString;
 
   // clear classList and restart
-  $("#classList").empty();
+  $("#class_list").empty();
 
   // for each class, print in list with requirements met
   for (var i = 0; i < enteredClasses.length; i++) {

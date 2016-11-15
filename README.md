@@ -7,4 +7,5 @@
 * ~~There should be an explicit way of informing users what requirements are filled by each class (parentheses maybe?)~~
 * ~~Saving should be automatic perhaps?~~
 * General styling improvements needed
-* [BUG] System won't properly save when there are 0 classes
+* ~~[BUG] System won't properly save when there are 0 classes~~
+* [BUG] COEN elective counting issue
