@@ -82,6 +82,7 @@ data = {"classes": [
   {"dept" : "coen", "no" : "19", "label" : "COEN 19", "req" : [{"name" : "coen19"}]},
   {"dept" : "coen", "no" : "20", "label" : "COEN 20", "req" : [{"name" : "coen20"}]},
   {"dept" : "coen", "no" : "21", "label" : "COEN 21", "req" : [{"name" : "coen21"}]},
+  {"dept" : "coen", "no" : "44", "label" : "COEN 44", "req" : [{"name" : "coen11"}]},
   {"dept" : "coen", "no" : "70", "label" : "COEN 70", "req" : [{"name" : "coen70"}]},
   {"dept" : "coen", "no" : "120", "label" : "COEN 120", "req" : [{"name" : "elective"}]},
   {"dept" : "coen", "no" : "122", "label" : "COEN 122", "req" : [{"name" : "coen122"}]},
@@ -105,12 +106,12 @@ data = {"classes": [
   {"dept" : "coen", "no" : "171", "label" : "COEN 171", "req" : [{"name" : "coen171"}]},
   {"dept" : "coen", "no" : "172", "label" : "COEN 172", "req" : [{"name" : "elective"}]},
   {"dept" : "coen", "no" : "173", "label" : "COEN 173", "req" : [{"name" : "elective"}]},
-  {"dept" : "coen", "no" : "178", "label" : "COEN 178", "req" : [{"name" : "elective"}]},
-  {"dept" : "coen", "no" : "179", "label" : "COEN 179", "req" : [{"name" : "coen179"}]},
-  {"dept" : "coen", "no" : "180", "label" : "COEN 180", "req" : [{"name" : "elective"}]},
   {"dept" : "coen", "no" : "174", "label" : "COEN 174", "req" : [{"name" : "coen174"}]},
   {"dept" : "coen", "no" : "175", "label" : "COEN 175", "req" : [{"name" : "coen175"}]},
   {"dept" : "coen", "no" : "177", "label" : "COEN 177", "req" : [{"name" : "coen177"}]},
+  {"dept" : "coen", "no" : "178", "label" : "COEN 178", "req" : [{"name" : "elective"}]},
+  {"dept" : "coen", "no" : "179", "label" : "COEN 179", "req" : [{"name" : "coen179"}]},
+  {"dept" : "coen", "no" : "180", "label" : "COEN 180", "req" : [{"name" : "elective"}]},
   {"dept" : "coen", "no" : "194", "label" : "COEN 194", "req" : [{"name" : "coen194"}]},
   {"dept" : "coen", "no" : "195", "label" : "COEN 195", "req" : [{"name" : "coen195"}]},
   {"dept" : "coen", "no" : "196", "label" : "COEN 196", "req" : [{"name" : "coen196"}]},
@@ -157,10 +158,13 @@ data = {"classes": [
   {"dept" : "elen", "no" : "21", "label" : "ELEN 21", "req" : [{"name" : "coen21"}]},
   {"dept" : "elen", "no" : "50", "label" : "ELEN 50", "req" : [{"name" : "elen50"}]},
   {"dept" : "elen", "no" : "115", "label" : "ELEN 115", "req" : [{"name" : "elective"}]},
+  {"dept" : "elen", "no" : "123", "label" : "ELEN 123", "req" : [{"name" : "elective"}]},
+  {"dept" : "elen", "no" : "127", "label" : "ELEN 127", "req" : [{"name" : "elective"}]},
   {"dept" : "elen", "no" : "133", "label" : "ELEN 133", "req" : [{"name" : "elective"}]},
   {"dept" : "elen", "no" : "134", "label" : "ELEN 134", "req" : [{"name" : "elective"}]},
   {"dept" : "elen", "no" : "153", "label" : "ELEN 153", "req" : [{"name" : "elen153"}]},
   {"dept" : "elen", "no" : "160", "label" : "ELEN 160", "req" : [{"name" : "rtc3"}]},
+  {"dept" : "elen", "no" : "180", "label" : "ELEN 180", "req" : [{"name" : "elective"}]},
 
   {"dept" : "elsj", "no" : "22", "label" : "ELSJ 22", "req" : [{"name" : "elsj"}]},
   {"dept" : "elsj", "no" : "23", "label" : "ELSJ 23", "req" : [{"name" : "elsj"}]},
@@ -218,6 +222,9 @@ data = {"classes": [
   {"dept" : "engr", "no" : "111", "label" : "ENGR 111", "req" : [{"name" : "elsj"}]},
   {"dept" : "engr", "no" : "143", "label" : "ENGR 143", "req" : [{"name" : "rtc2"}]},
   {"dept" : "engr", "no" : "177", "label" : "ENGR 177", "req" : [{"name" : "cni3"}]},
+  {"dept" : "engr", "no" : "194", "label" : "ENGR 194", "req" : [{"name" : "coen194"}]},
+  {"dept" : "engr", "no" : "195", "label" : "ENGR 195", "req" : [{"name" : "coen195"}]},
+  {"dept" : "engr", "no" : "196", "label" : "ENGR 196", "req" : [{"name" : "coen196"}]},
 
   {"dept" : "envs", "no" : "1a", "label" : "ENVS 1A", "req" : [{"name" : "ctw1"}]},
   {"dept" : "envs", "no" : "2a", "label" : "ENVS 2A", "req" : [{"name" : "ctw2"}]},
@@ -366,7 +373,7 @@ data = {"classes": [
   {"dept" : "math", "no" : "111", "label" : "MATH 111", "req" : [{"name" : "amth106"}]},
   {"dept" : "math", "no" : "112", "label" : "MATH 112", "req" : [{"name" : "amth106"}]},
   {"dept" : "math", "no" : "113", "label" : "MATH 113", "req" : [{"name" : "amth106"}]},
-  {"dept" : "math", "no" : "122", "label" : "MATH 122", "req" : [{"name" : "amth106"}]},
+  {"dept" : "math", "no" : "122", "label" : "MATH 122", "req" : [{"name" : "amth108"}]},
   {"dept" : "math", "no" : "123", "label" : "MATH 123", "req" : [{"name" : "amth106"}]},
   {"dept" : "math", "no" : "125", "label" : "MATH 125", "req" : [{"name" : "amth106"}]},
   {"dept" : "math", "no" : "133", "label" : "MATH 133", "req" : [{"name" : "amth106"}]},
@@ -385,6 +392,8 @@ data = {"classes": [
   {"dept" : "math", "no" : "177", "label" : "MATH 177", "req" : [{"name" : "amth106"}]},
   {"dept" : "math", "no" : "178", "label" : "MATH 178", "req" : [{"name" : "amth106"}]},
 
+  {"dept" : "mech", "no" : "143", "label" : "MECH 143", "req" : [{"name" : "elective"}]},
+
   {"dept" : "mgmt", "no" : "6", "label" : "MGMT 6", "req" : [{"name" : "ethics"}]},
   {"dept" : "mgmt", "no" : "8", "label" : "MGMT 8", "req" : [{"name" : "elsj"}]},
   {"dept" : "mgmt", "no" : "80", "label" : "MGMT 80", "req" : [{"name" : "cni3"}]},
@@ -398,6 +407,8 @@ data = {"classes": [
   {"dept" : "musc", "no" : "136", "label" : "MUSC 136", "req" : [{"name" : "cni3"}]},
   {"dept" : "musc", "no" : "189", "label" : "MUSC 189", "req" : [{"name" : "rtc2"}]},
   {"dept" : "musc", "no" : "196", "label" : "MUSC 196", "req" : [{"name" : "diversity"}]},
+
+  {"dept" : "omis", "no" : "30", "label" : "OMIS 30", "req" : [{"name" : "coen10"}]},
 
   {"dept" : "phil", "no" : "1a", "label" : "PHIL 1A", "req" : [{"name" : "ctw1"}]},
   {"dept" : "phil", "no" : "2", "label" : "PHIL 2", "req" : [{"name" : "ethics"}]},
@@ -971,6 +982,7 @@ function configEnrichment() {
   }
 }
 
+// function to make class as used in global array
 function markTrue(classCode) {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].classCode == classCode) {
@@ -979,6 +991,7 @@ function markTrue(classCode) {
   }
 }
 
+// function returns whether a req is being fulfilled by a class
 function reqFulfilled(req) {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].req == req && enteredClasses[i].used == true) {
@@ -1035,23 +1048,6 @@ function classFound(classCode) {
   }
   return false;
 }
-// Change state of educational enrichment
-// function changeState() {
-//     if($("#eduEnrich").html() == "Complete") {
-//       $("#eduEnrich_").remove();
-//       $("#eduEnrich").css("background-color", "lightgray");
-//       $("#eduEnrich").html("Not Complete");
-//       eduFlag = false;
-//     }
-//
-//     else {
-//       var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
-//       $("ul").append(htmlString);
-//       $("#eduEnrich").css("background-color", "limegreen");
-//       $("#eduEnrich").html("Complete");
-//       eduFlag = true;
-//     }
-// }
 
 // POST classes to JSON file via AJAX
 function save(){
@@ -1067,6 +1063,7 @@ function save(){
     });
 }
 
+// function to set all 'used' values to 'false'
 function reconfigArray() {
   for (var i = 0; i < enteredClasses.length; i++) {
     enteredClasses[i].used = false;
