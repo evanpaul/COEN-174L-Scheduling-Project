@@ -1,9 +1,11 @@
-#class_input_`form`{
+#class_input_form{
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    background-color: red;
     width: 30%;
+}
+#class_list_title{
+    
 }
 #entered_class{
     order: 1;
@@ -118,12 +120,14 @@
     left: 20px;
     background-color:#1cdb4f;
 }
+/*
 table, td {
    border: 1px solid black;
 }
 td{
     background-color: lightgrey;
 }
+*/
 #eduEnrich{
     width: 150px;
     height: 50px;

@@ -751,7 +751,7 @@ function populate(){
                 if(eduFlag){
                     var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
                     $("ul").append(htmlString);
-                    $("#eduEnrich").css("background-color", "limegreen");
+                    $("#eduEnrich").css("background-color", "#1cdb4f");
                     $("#eduEnrich").html("Complete");
                 }else{
                     $("#eduEnrich").css("background-color", "lightgray");
@@ -843,7 +843,7 @@ function removeClass(classCode) {
     if (enteredClasses[i].classCode == classCode) {
 
       // remove from list, check if double dipper
-      enteredClasses.splice(i,1);
+      enteredClasses.splice(i, 1);
       if (classFound(classCode)) {
         // if double dipper, recursive call
         removeClass(classCode);
@@ -889,7 +889,8 @@ function configList() {
     }
     // case: class not in list, create list item
     else {
-      var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + " <em>(" + enteredClasses[i].req + ")</em>   <button onclick='removeClass(\""+classCode+"\")'> x </button></li>";
+      var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + " <em>(" + enteredClasses[i].req + ")</em>";
+      var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""+classCode+"\")'> x </button></li></td></tr>";
       $("#class_list").append(htmlString);
     }
   }
@@ -897,13 +898,12 @@ function configList() {
 
 // function to restylize reqs fulfilled
 function configReq() {
-
   // turn all boxes lightgray first
-  $("td").css('background-color', 'lightgray');
+  $(".indicator").css('background-color', 'lightgray');
 
   // turn all fulfilled reqs to green
   for (var i = 0; i < enteredClasses.length; i++) {
-    $("#"+enteredClasses[i].req).css('background-color', 'limegreen');
+    $("#"+enteredClasses[i].req).css('background-color', '#1cdb4f');
   }
 }
 
@@ -920,7 +920,7 @@ function configElective() {
 
   // if 3 or more classes, turn green
   if (count >= 3) {
-    $("#elective").css("background-color", "limegreen");
+    $("#elective").css("background-color", "#1cdb4f");
     $("#elective").html("COEN ELECTIVES (3)");
     return true;
   }
@@ -933,7 +933,7 @@ function configElective() {
 
   // no classes
   else {
-    $("#elective").css("background-color", "lightgray");
+    $("#elective").css("background-color", "lightgray"); // REVERT?
     $("#elective").html("COEN ELECTIVES (0)");
   }
 }
@@ -1049,7 +1049,7 @@ function classFound(classCode) {
 //     else {
 //       var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
 //       $("ul").append(htmlString);
-//       $("#eduEnrich").css("background-color", "limegreen");
+//       $("#eduEnrich").css("background-color", "#1cdb4f");
 //       $("#eduEnrich").html("Complete");
 //       eduFlag = true;
 //     }

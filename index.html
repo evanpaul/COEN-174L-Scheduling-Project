@@ -19,22 +19,27 @@
         </div>
         <div id="container">
             <div id="left_side">
-                <div id="enter" class="panel panel-default subpanel">
-                    <div class="panel-heading">
-                        <h2 class="firstHeader">Enter a course</h2>
-
-                    </div>
-                    <div class="panel-body">
+                <div id="entered "class="panel panel-default">
+                    <div id="class_list_title" class="panel-heading">
+                        <h2 style ="margin: 0 auto; width:80%; text-align: center;">Enter a course</h2>
                         <form id="class_input_form">
-                            <input class="form_element" type="text" id="entered_class" placeholder="ex. 'coen10' or 'COEN 10'"/>
+                            <input class="form_element" type="text" id="entered_class" placeholder="ex. 'COEN 10'"/>
                             <button class="form_element" type="button" id="submitButton" onclick="submitClass()">Submit</button>
                         </form>
                     </div>
-                </div>
-                <div id="entered "class="panel panel-default">
-                    <div id="class_list_title" class="panel-heading">Entered courses</div>
                     <div class="panel-body">
-                        <ul id="class_list"></ul>
+                        <!--<ul id="class_list"></ul>-->
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Course</th>
+                              <th>Requirement(s) Fulfilled</th>
+                              <th>Remove Course</th>
+                            </tr>
+                          </thead>
+                          <tbody id="class_list">
+                          </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -43,51 +48,51 @@
                 <h2 class="header firstHeader">Major Requirements</h2>
                 <table class="class_table table" id="majorTab">
                     <tr>
-                        <td id="engr1">ENGR 1</td>
-                        <td id="coen10">COEN 10</td>
-                        <td id="coen11">COEN 11</td>
-                        <td id="coen12">COEN 12</td>
-                        <td id="coen19">COEN 19</td>
+                        <td class="indicator" id="engr1">ENGR 1</td>
+                        <td class="indicator" id="coen10">COEN 10</td>
+                        <td class="indicator" id="coen11">COEN 11</td>
+                        <td class="indicator" id="coen12">COEN 12</td>
+                        <td class="indicator" id="coen19">COEN 19</td>
                     </tr>
                     <tr>
-                        <td id="coen20">COEN 20</td>
-                        <td id="coen21">COEN 21</td>
-                        <td id="coen70">COEN 70</td>
-                        <td id="coen122">COEN 122</td>
-                        <td id="coen146">COEN 146</td>
+                        <td class="indicator" id="coen20">COEN 20</td>
+                        <td class="indicator" id="coen21">COEN 21</td>
+                        <td class="indicator" id="coen70">COEN 70</td>
+                        <td class="indicator" id="coen122">COEN 122</td>
+                        <td class="indicator" id="coen146">COEN 146</td>
                     </tr>
                     <tr>
-                        <td id="coen171">COEN 171</td>
-                        <td id="coen174">COEN 174</td>
-                        <td id="coen175">COEN 175</td>
-                        <td id="coen177">COEN 177</td>
-                        <td id="coen179">COEN 179</td>
+                        <td class="indicator" id="coen171">COEN 171</td>
+                        <td class="indicator" id="coen174">COEN 174</td>
+                        <td class="indicator" id="coen175">COEN 175</td>
+                        <td class="indicator" id="coen177">COEN 177</td>
+                        <td class="indicator" id="coen179">COEN 179</td>
                     </tr>
                     <tr>
-                        <td id="coen194">COEN 194</td>
-                        <td id="coen195">COEN 195</td>
-                        <td id="coen196">COEN 196</td>
-                        <td id="elen50">ELEN 50</td>
-                        <td id="elen153">ELEN 153</td>
+                        <td class="indicator" id="coen194">COEN 194</td>
+                        <td class="indicator" id="coen195">COEN 195</td>
+                        <td class="indicator" id="coen196">COEN 196</td>
+                        <td class="indicator" id="elen50">ELEN 50</td>
+                        <td class="indicator" id="elen153">ELEN 153</td>
                     </tr>
                     <tr>
-                        <td id="engl181">ENGL 181</td>
-                        <td id="math11">MATH 11</td>
-                        <td id="math12">MATH 12</td>
-                        <td id="math13">MATH 13</td>
-                        <td id="math14">MATH 14</td>
+                        <td class="indicator" id="engl181">ENGL 181</td>
+                        <td class="indicator" id="math11">MATH 11</td>
+                        <td class="indicator" id="math12">MATH 12</td>
+                        <td class="indicator" id="math13">MATH 13</td>
+                        <td class="indicator" id="math14">MATH 14</td>
                     </tr>
                     <tr>
-                        <td id="phys31">PHYS 31</td>
-                        <td id="phys32">PHYS 32</td>
-                        <td id="phys33">PHYS 33</td>
-                        <td id="chem11">CHEM 11</td>
-                        <td id="amth106">AMTH 106</td>
+                        <td class="indicator" id="phys31">PHYS 31</td>
+                        <td class="indicator" id="phys32">PHYS 32</td>
+                        <td class="indicator" id="phys33">PHYS 33</td>
+                        <td class="indicator" id="chem11">CHEM 11</td>
+                        <td class="indicator" id="amth106">AMTH 106</td>
                     </tr>
                     <tr>
-                        <td id="amth108">AMTH 108</td>
-                        <td id="math53">MATH 53</td>
-                        <td id="elective">COEN ELECTIVES (3)</td>
+                        <td class="indicator" id="amth108">AMTH 108</td>
+                        <td class="indicator" id="math53">MATH 53</td>
+                        <td class="indicator" id="elective">COEN ELECTIVES (3)</td>
                     </tr>
                 </table>
             <h2 class="header">CORE</h2>
