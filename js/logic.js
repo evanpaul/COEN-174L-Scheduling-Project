@@ -135,10 +135,11 @@ function addClass(classCode, req, disableSave=false) {
   enteredClasses.push(newClass);
 
   // call to reconfigure page and class list
+  configEnrichment();
   configList();
   configReq();
   configElective();
-  configEnrichment();
+
   // Used with populate() call. no sense in saving what you just loaded
   if(!disableSave){
       save();
@@ -163,10 +164,10 @@ function removeClass(classCode) {
       // remove page, reconfigure
       else {
         $("#"+classCode+"_").remove();
+        configEnrichment();
         configList();
         configReq();
         configElective();
-        configEnrichment();
       }
       save();
     }
@@ -180,7 +181,7 @@ function configList() {
   var classCode;
   var patt;
   var res;
-  var str;
+  var str, htmlString;
 
   // clear classList and restart
   $("#classList").empty();
@@ -202,10 +203,17 @@ function configList() {
     }
     // case: class not in list, create list item
     else {
-      console.log(enteredClasses[i].req, typeof(enteredClasses[i].req));
-      var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"~'>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""
-      +classCode+"\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
-      $("#class_list").append(htmlString);
+      if ($("#"+classCode+"_ee").length) {
+        var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"r'>Enrichment</td><td><button onclick='removeClass(\""
+        +classCode+"\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
+        $("#class_list").append(htmlString);
+      }
+      else {
+          var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"r'>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""
+          +classCode+"\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
+          $("#class_list").append(htmlString);
+      }
+      $("#classList").append(htmlString);
     }
   }
 }
@@ -234,20 +242,20 @@ function configElective() {
   // if 3 or more classes, turn green
   if (count >= 3) {
     $("#elective").css("background-color", "#1cdb4f");
-    $("#elective").html("COEN ELECTIVES (3)");
+    $("#elective").html("ELECTIVES (3)");
     return true;
   }
 
   // if 1 or 2 classes, turn yellow
   else if (count > 0 && count < 3) {
     $("#elective").css("background-color", "#f4f142");
-    $("#elective").html("COEN ELECTIVES ("+count+")");
+    $("#elective").html("ELECTIVES ("+count+")");
   }
 
   // no classes
   else {
     $("#elective").css("background-color", "white");
-    $("#elective").html("COEN ELECTIVES (0)");
+    $("#elective").html("ELECTIVES (0)");
   }
 }
 
@@ -268,8 +276,13 @@ function configEnrichment() {
       markTrue(enteredClasses[i].classCode);
     }
   }
-
+  console.table(enteredClasses);
   for (j = 0; j < enteredClasses.length; j++) {
+    console.log(j, enteredClasses[j]);
+    // pass over electives
+    if (enteredClasses[j].req == "elective") {
+      continue;
+    }
     if (enteredClasses[j].used == false) {
         if (!reqFulfilled(enteredClasses[j].req)) {
           markTrue(enteredClasses[j].classCode);
@@ -281,6 +294,8 @@ function configEnrichment() {
     }
   }
 }
+
+// function to make class as used in global array
 function markTrue(classCode) {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].classCode == classCode) {
@@ -289,6 +304,7 @@ function markTrue(classCode) {
   }
 }
 
+// function returns whether a req is being fulfilled by a class
 function reqFulfilled(req) {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].req == req && enteredClasses[i].used == true) {
@@ -360,6 +376,7 @@ function save(){
     });
 }
 
+// function to set all 'used' values to 'false'
 function reconfigArray() {
   for (var i = 0; i < enteredClasses.length; i++) {
     enteredClasses[i].used = false;
