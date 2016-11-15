@@ -11,7 +11,6 @@ var data = {"classes": [
   {"dept" : "anth", "no" : "152", "label" : "ANTH 152", "req" : [{"name" : "cni3"}]},
   {"dept" : "anth", "no" : "156", "label" : "ANTH 156", "req" : [{"name" : "cni3"}]},
   {"dept" : "anth", "no" : "157", "label" : "ANTH 157", "req" : [{"name" : "diversity"}]},
-  {"dept" : "anth", "no" : "50", "label" : "ANTH 50", "req" : [{"name" : "cni3"}]},
   {"dept" : "anth", "no" : "170", "label" : "ANTH 170", "req" : [{"name" : "diversity"}]},
   {"dept" : "anth", "no" : "172", "label" : "ANTH 172", "req" : [{"name" : "cni3"}]},
   {"dept" : "anth", "no" : "181", "label" : "ANTH 181", "req" : [{"name" : "cni3"}]},
