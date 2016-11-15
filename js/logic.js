@@ -823,10 +823,10 @@ function addClass(classCode, req, disableSave=false) {
   enteredClasses.push(newClass);
 
   // call to reconfigure page and class list
+  configEnrichment();
   configList();
   configReq();
   configElective();
-  configEnrichment();
   // Used with populate() call. no sense in saving what you just loaded
   if(!disableSave){
       save();
@@ -851,10 +851,10 @@ function removeClass(classCode) {
       // remove page, reconfigure
       else {
         $("#"+classCode+"_").remove();
+        configEnrichment();
         configList();
         configReq();
         configElective();
-        configEnrichment();
       }
       save();
     }
@@ -868,7 +868,7 @@ function configList() {
   var classCode;
   var patt;
   var res;
-  var str;
+  var str, htmlString;
 
   // clear classList and restart
   $("#classList").empty();
@@ -888,7 +888,12 @@ function configList() {
     }
     // case: class not in list, create list item
     else {
-      var htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
+      if ($("#"+classCode+"_ee").length) {
+        htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": Enrichment</li>";
+      }
+      else {
+        htmlString = "<li id ='"+classCode+"_'><button onclick='removeClass(\""+classCode+"\")'> x </button>" + getLabel(classCode) + ": " + enteredClasses[i].req + "</li>";
+      }
       $("#classList").append(htmlString);
     }
   }
@@ -920,20 +925,20 @@ function configElective() {
   // if 3 or more classes, turn green
   if (count >= 3) {
     $("#elective").css("background-color", "limegreen");
-    $("#elective").html("COEN ELECTIVES (3)");
+    $("#elective").html("ELECTIVES (3)");
     return true;
   }
 
   // if 1 or 2 classes, turn yellow
   else if (count > 0 && count < 3) {
     $("#elective").css("background-color", "#f4f142");
-    $("#elective").html("COEN ELECTIVES ("+count+")");
+    $("#elective").html("ELECTIVES ("+count+")");
   }
 
   // no classes
   else {
     $("#elective").css("background-color", "lightgray");
-    $("#elective").html("COEN ELECTIVES (0)");
+    $("#elective").html("ELECTIVES (0)");
   }
 }
 
@@ -945,9 +950,7 @@ function configEnrichment() {
 
   // set all classes.used to "false", clear enrichList
   reconfigArray();
-  console.log("reconfigArray() called");
   $("#enrichList").empty();
-  console.log("list emptied");
 
   console.table(enteredClasses);
 
@@ -957,10 +960,13 @@ function configEnrichment() {
       markTrue(enteredClasses[i].classCode);
     }
   }
-  console.log("double dips checked");
   console.table(enteredClasses);
   for (j = 0; j < enteredClasses.length; j++) {
     console.log(j, enteredClasses[j]);
+    // pass over electives
+    if (enteredClasses[j].req == "elective") {
+      continue;
+    }
     if (enteredClasses[j].used == false) {
         if (!reqFulfilled(enteredClasses[j].req)) {
           markTrue(enteredClasses[j].classCode);
@@ -972,6 +978,7 @@ function configEnrichment() {
     }
   }
 }
+
 function markTrue(classCode) {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].classCode == classCode) {
