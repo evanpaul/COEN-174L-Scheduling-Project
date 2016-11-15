@@ -747,15 +747,6 @@ function populate(){
                     var req = json.classes[i].req;
                     addClass(classCode, req, disableSave=true);
                 }
-                // Color educational enrichment
-                if(eduFlag){
-                    var htmlString = "<li id ='eduEnrich_'>" + "Edu. Enrich." + "<button onclick='changeState()'> x </button></li>"
-                    $("ul").append(htmlString);
-                    $("#eduEnrich").css("background-color", "#1cdb4f");
-                    $("#eduEnrich").html("Complete");
-                }else{
-                    $("#eduEnrich").css("background-color", "lightgray");
-                }
             }else{
                 console.log("No existing session detected!");
             }
@@ -877,6 +868,7 @@ function configList() {
   for (var i = 0; i < enteredClasses.length; i++) {
     classCode = enteredClasses[i].classCode;
     req = enteredClasses[i].req;
+    console.log(classCode, req);
     patt = new RegExp(req);
 
     // case: if the class is already in the list
@@ -889,8 +881,10 @@ function configList() {
     }
     // case: class not in list, create list item
     else {
-      var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + " <em>(" + enteredClasses[i].req + ")</em>";
-      var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""+classCode+"\")'> x </button></li></td></tr>";
+      //var htmlString = "<li id ='"+classCode+"_'>" + getLabel(classCode) + " <em>(" + enteredClasses[i].req + ")</em>";
+      console.log(enteredClasses[i].req, typeof(enteredClasses[i].req));
+      var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""
+      +classCode+"\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
       $("#class_list").append(htmlString);
     }
   }
@@ -914,7 +908,6 @@ function configElective() {
   for (var i = 0; i < enteredClasses.length; i++) {
     if (enteredClasses[i].req == "elective") {
       count++;
-      console.log(count);
     }
   }
 
@@ -946,11 +939,8 @@ function configEnrichment() {
 
   // set all classes.used to "false", clear enrichList
   reconfigArray();
-  console.log("reconfigArray() called");
   $("#enrichList").empty();
-  console.log("list emptied");
 
-  console.table(enteredClasses);
 
   // go through and find double dips first
   for (i = 0; i < enteredClasses.length; i++) {
@@ -958,10 +948,8 @@ function configEnrichment() {
       markTrue(enteredClasses[i].classCode);
     }
   }
-  console.log("double dips checked");
-  console.table(enteredClasses);
+
   for (j = 0; j < enteredClasses.length; j++) {
-    console.log(j, enteredClasses[j]);
     if (enteredClasses[j].used == false) {
         if (!reqFulfilled(enteredClasses[j].req)) {
           markTrue(enteredClasses[j].classCode);
