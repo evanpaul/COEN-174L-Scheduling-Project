@@ -66,7 +66,7 @@ function populate(){
                         addClass(classCode, req, disableSave=true);
                     }
                 }else{
-                    console.error(d, d.classes);
+                    console.log("Empty session returned");
                 }
             }else{
                 console.log("No existing session detected!");
@@ -96,6 +96,7 @@ function getReq(classCode){
 function submitClass() {
   // Catch enter key?
   var textField = $("#entered_class").val();
+  $("#entered_class").val("");
   if(!textField) {
       alert("Please enter a course!");
       return false;
@@ -154,10 +155,11 @@ function removeClass(classCode) {
 
     // if found
     if (enteredClasses[i].classCode == classCode) {
-
+        console.log("Found class");
       // remove from list, check if double dipper
       enteredClasses.splice(i, 1);
       if (classFound(classCode)) {
+          console.log("Double dipper");
         // if double dipper, recursive call
         removeClass(classCode);
       }
@@ -195,21 +197,21 @@ function configList() {
 
     // case: if the class is already in the list
     if ($("#"+classCode+"_").length) {
-      str = $("#"+classCode+"_").html()
+      str = $("#"+classCode+"_r").html()
       // check if req is already printed
       if (!patt.test(str)) {
-        $("#"+classCode+"_").append(", "+req);
+        $("#"+classCode+"_r").append(", "+req);
       }
     }
     // case: class not in list, create list item
     else {
       if ($("#"+classCode+"_ee").length) {
-        var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"r'>Enrichment</td><td><button onclick='removeClass(\""
+        var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"_r'>Enrichment</td><td><button onclick='removeClass(\""
         +classCode+"\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
         $("#class_list").append(htmlString);
       }
       else {
-          var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"r'>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""
+          var htmlString = "<tr id='"+classCode+"_'><td>"+getLabel(classCode)+"</td><td id='"+classCode+"_r'>"+enteredClasses[i].req+"</td><td><button onclick='removeClass(\""
           +classCode+"\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
           $("#class_list").append(htmlString);
       }
@@ -220,6 +222,7 @@ function configList() {
 
 // function to restylize reqs fulfilled
 function configReq() {
+    console.log("configReq");
   // turn all boxes lightgray first
   $(".indicator").css('background-color', 'white');
 
