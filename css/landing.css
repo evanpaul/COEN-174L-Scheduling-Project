@@ -1,30 +1,37 @@
-.lines{
+.lines {
     color: white;
 }
-.jumbotron{
+
+.jumbotron {
     text-align: center;
 }
-#jumbo1{
-    background-color: #1cdb4f; /*20e855*/
+
+#jumbo1 {
+    background-color: #1cdb4f;
 }
-#jumbo2{
+
+#jumbo2 {
     background-color: white;
 }
-#generate{
+
+#generate {
     background-color: #1cdb4f;
     color: white;
     border: 0 none;
 }
-#textContainer{
+
+#textContainer {
     margin: 0 auto;
     padding: 5px;
     text-align: center;
     width: 20%;
 }
-#input{
+
+#input {
     width: 20%;
     text-align: center;
 }
-#or{
+
+#or {
     text-align: center;
 }

@@ -1,10 +1,11 @@
-#message{
+#message {
     padding: 5px;
     background-color: #1cdb4f;
     color: white;
     text-align: center;
 }
-#redir{
+
+#redir {
     background-color: white;
     color: black;
     border: 0;

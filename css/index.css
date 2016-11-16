@@ -1,69 +1,81 @@
-body{
+body {
     font-family: 'Roboto', sans-serif;
     text-rendering: optimizelegibility;
     padding: 0.5%;
 }
-#class_input_form{
+
+#class_input_form {
     display: flex;
     justify-content: center;
     margin: 0 auto;
     width: 50%;
     background-color: red;
 }
-#entered_class{
+
+#entered_class {
     order: 1;
-    width:80%;
+    width: 80%;
 }
-#submitButton{
+
+#submitButton {
     order: 2;
     width: 100%;
     min-width: 20em;
 }
-#enter{
+
+#enter {
     margin: 0px;
 }
-#entered{
+
+#entered {
     margin: 0px;
 }
-#sessionBox{
+
+#sessionBox {
     width: 80%;
     margin: 0 auto;
     order: 1;
 }
-#newSession{
+
+#newSession {
     background-image: linear-gradient(to bottom, #1cdb4f, ##377E27);
     color: black;
-    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     order: 2;
-    background-color:#1cdb4f;
+    background-color: #1cdb4f;
 }
-.header{
+
+.header {
     color: black;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     text-align: center;
     margin: 0;
 }
-#topHeader{
+
+#topHeader {
     display: flex;
     margin: 0;
     margin-bottom: 5px;
     justify-content: center;
     align-items: flex-end;
 }
-#titleBox{
+
+#titleBox {
     order: 1;
     width: 40%;
     margin: 0;
 }
-#subheader{
+
+#subheader {
     margin: 0;
     order: 2;
     display: flex;
     justify-content: space-between;
     width: 15%;
 }
-#title{
+
+#title {
     margin: 0;
     text-align: center;
     color: #1cdb4f;
@@ -91,43 +103,49 @@ body{
     border-top: 1px solid black;
     white-space: nowrap;
 }
-#left_side{
+
+#left_side {
     order: 1;
-    width: 45%; /*45?*/
-    /*border:1px solid black;*/
+    width: 45%;
     padding: 0px;
 }
-#right_side{
-    order:2;
+
+#right_side {
+    order: 2;
     width: 54%;
-    /*border:1px solid black;*/
     padding: 0px;
 }
-.no-marg{
+
+.no-marg {
     margin-bottom: 0 !important;
 }
-.reduce_pad{
+
+.reduce_pad {
     padding: 1px !important;
 }
-#container{
+
+#container {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-#eduEnrich
-{
-    border:1px solid black;
+
+#eduEnrich {
+    border: 1px solid black;
     width: 50%;
     background-color: lightgray;
 }
-#class_list{
+
+#class_list {
     list-style-type: none;
     text-align: center;
 }
-.class_table{
+
+.class_table {
     margin: 0 !important;
 }
-#eduEnrich{
+
+#eduEnrich {
     width: 150px;
     height: 50px;
     vertical-align: middle;

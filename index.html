@@ -1,146 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <script type="text/javascript" src="resources/jquery.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/classes.js"></script>
-        <script type="text/javascript" src="js/logic.js"></script>
-        <title>SCU Degree Progress Tracker</title>
-    </head>
-    <body onload="populate()">
-        <div id="topHeader">
-            <div id="titleBox">
-                <h1 id="title">SCU Degree Progress Tracker</h1>
-            </div>
-            <div id="subheader">
-                <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
-                <button class="btn btn-default" id="newSession" onclick="newSession()" type="button" >Generate a new session</button>
-            </div>
-        </div>
-        <div id="container">
-            <div id="left_side">
-                <div id="entered "class="panel panel-default">
-                    <div id="class_list_title" class="panel-heading">
-                        <h2 class ="header">Enter a course</h2>
-                        <form id="class_input_form">
-                            <input class="form_element" type="text" id="entered_class" placeholder="ex. 'COEN 10'"/>
-                            <button class="form_element" type="button" id="submitButton" onclick="submitClass()">Submit</button>
-                        </form>
-                    </div>
-                    <div class="panel-body">
-                        <!--<ul id="class_list"></ul>-->
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Course</th>
-                              <th>Requirement(s) Fulfilled</th>
-                              <th>Remove Course</th>
-                            </tr>
-                          </thead>
-                          <tbody id="class_list">
-                          </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
 
-            <div id="right_side">
-                <div class="panel panel-default no-marg">
-                    <div class="panel-heading">
-                        <h2 class="header">Major Requirements</h2>
-                    </div>
-                    <div class="panel-body reduce_pad">
-                        <table class="class_table table" id="majorTab">
-                            <tr>
-                                <td class="indicator" id="engr1">ENGR 1</td>
-                                <td class="indicator" id="coen10">COEN 10</td>
-                                <td class="indicator" id="coen11">COEN 11</td>
-                                <td class="indicator" id="coen12">COEN 12</td>
-                                <td class="indicator" id="coen19">COEN 19</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="coen20">COEN 20</td>
-                                <td class="indicator" id="coen21">COEN 21</td>
-                                <td class="indicator" id="coen70">COEN 70</td>
-                                <td class="indicator" id="coen122">COEN 122</td>
-                                <td class="indicator" id="coen146">COEN 146</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="coen171">COEN 171</td>
-                                <td class="indicator" id="coen174">COEN 174</td>
-                                <td class="indicator" id="coen175">COEN 175</td>
-                                <td class="indicator" id="coen177">COEN 177</td>
-                                <td class="indicator" id="coen179">COEN 179</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="coen194">COEN 194</td>
-                                <td class="indicator" id="coen195">COEN 195</td>
-                                <td class="indicator" id="coen196">COEN 196</td>
-                                <td class="indicator" id="elen50">ELEN 50</td>
-                                <td class="indicator" id="elen153">ELEN 153</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="engl181">ENGL 181</td>
-                                <td class="indicator" id="math11">MATH 11</td>
-                                <td class="indicator" id="math12">MATH 12</td>
-                                <td class="indicator" id="math13">MATH 13</td>
-                                <td class="indicator" id="math14">MATH 14</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="phys31">PHYS 31</td>
-                                <td class="indicator" id="phys32">PHYS 32</td>
-                                <td class="indicator" id="phys33">PHYS 33</td>
-                                <td class="indicator" id="chem11">CHEM 11</td>
-                                <td class="indicator" id="amth106">AMTH 106</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="amth108">AMTH 108</td>
-                                <td class="indicator" id="math53">MATH 53</td>
-                                <td class="indicator" id="elective">ELECTIVES (0)</td>
-                            </tr>
-                        </table>
-                    </div>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/classes.js"></script>
+    <script type="text/javascript" src="js/logic.js"></script>
+    <title>SCU Degree Progress Tracker</title>
+</head>
+
+<body onload="populate()">
+    <div id="topHeader">
+        <div id="titleBox">
+            <h1 id="title">SCU Degree Progress Tracker</h1>
+        </div>
+        <div id="subheader">
+            <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
+            <button class="btn btn-default" id="newSession" onclick="newSession()" type="button">Generate a new session</button>
+        </div>
+    </div>
+    <div id="container">
+        <div id="left_side">
+            <div id="entered " class="panel panel-default">
+                <div id="class_list_title" class="panel-heading">
+                    <h2 class="header">Enter a course</h2>
+                    <form id="class_input_form">
+                        <input class="form_element" type="text" id="entered_class" placeholder="ex. 'COEN 10'" />
+                        <button class="form_element" type="button" id="submitButton" onclick="submitClass()">Submit</button>
+                    </form>
                 </div>
-                <div class="panel panel-default no-marg">
-                    <div class="panel-heading">
-                        <h2 class="header">CORE</h2>
-                    </div>
-                    <div class="panel-body reduce_pad">
-                        <table class="class_table table" id="coreTab">
+                <div class="panel-body">
+                    <!--<ul id="class_list"></ul>-->
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td class="indicator" id="ctw1">CTW 1</td>
-                                <td class="indicator" id="ctw2">CTW 2</td>
-                                <td class="indicator" id="cni1">C&I 1</td>
-                                <td class="indicator" id="cni2">C&I 2</td>
-                                <td class="indicator" id="cni3">C&I 3</td>
+                                <th>Course</th>
+                                <th>Requirement(s) Fulfilled</th>
+                                <th>Remove Course</th>
                             </tr>
-                            <tr>
-                                <td class="indicator" id="rtc1">RTC 1</td>
-                                <td class="indicator" id="rtc2">RTC 2</td>
-                                <td class="indicator" id="rtc3">RTC 3</td>
-                                <td class="indicator" id="ethics">ETHICS</td>
-                                <td class="indicator" id="diversity">DIVERSITY</td>
-                            </tr>
-                            <tr>
-                                <td class="indicator" id="socsci">SOC. SCIENCE</td>
-                                <td class="indicator" id="elsj">ELSJ</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <div class="panel panel-default no-marg">
-                    <div class="panel-heading">
-                        <h2 class="header">Educational Enrich.</h2>
-                    </div>
-                    <div class="panel-body reduce_pad">
-                        <ul id="enrichList"><ul>
-                    </div>
+                        </thead>
+                        <tbody id="class_list">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </body>
+
+        <div id="right_side">
+            <div class="panel panel-default no-marg">
+                <div class="panel-heading">
+                    <h2 class="header">Major Requirements</h2>
+                </div>
+                <div class="panel-body reduce_pad">
+                    <table class="class_table table" id="majorTab">
+                        <tr>
+                            <td class="indicator" id="engr1">ENGR 1</td>
+                            <td class="indicator" id="coen10">COEN 10</td>
+                            <td class="indicator" id="coen11">COEN 11</td>
+                            <td class="indicator" id="coen12">COEN 12</td>
+                            <td class="indicator" id="coen19">COEN 19</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="coen20">COEN 20</td>
+                            <td class="indicator" id="coen21">COEN 21</td>
+                            <td class="indicator" id="coen70">COEN 70</td>
+                            <td class="indicator" id="coen122">COEN 122</td>
+                            <td class="indicator" id="coen146">COEN 146</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="coen171">COEN 171</td>
+                            <td class="indicator" id="coen174">COEN 174</td>
+                            <td class="indicator" id="coen175">COEN 175</td>
+                            <td class="indicator" id="coen177">COEN 177</td>
+                            <td class="indicator" id="coen179">COEN 179</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="coen194">COEN 194</td>
+                            <td class="indicator" id="coen195">COEN 195</td>
+                            <td class="indicator" id="coen196">COEN 196</td>
+                            <td class="indicator" id="elen50">ELEN 50</td>
+                            <td class="indicator" id="elen153">ELEN 153</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="engl181">ENGL 181</td>
+                            <td class="indicator" id="math11">MATH 11</td>
+                            <td class="indicator" id="math12">MATH 12</td>
+                            <td class="indicator" id="math13">MATH 13</td>
+                            <td class="indicator" id="math14">MATH 14</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="phys31">PHYS 31</td>
+                            <td class="indicator" id="phys32">PHYS 32</td>
+                            <td class="indicator" id="phys33">PHYS 33</td>
+                            <td class="indicator" id="chem11">CHEM 11</td>
+                            <td class="indicator" id="amth106">AMTH 106</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="amth108">AMTH 108</td>
+                            <td class="indicator" id="math53">MATH 53</td>
+                            <td class="indicator" id="elective">ELECTIVES (0)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default no-marg">
+                <div class="panel-heading">
+                    <h2 class="header">CORE</h2>
+                </div>
+                <div class="panel-body reduce_pad">
+                    <table class="class_table table" id="coreTab">
+                        <tr>
+                            <td class="indicator" id="ctw1">CTW 1</td>
+                            <td class="indicator" id="ctw2">CTW 2</td>
+                            <td class="indicator" id="cni1">C&I 1</td>
+                            <td class="indicator" id="cni2">C&I 2</td>
+                            <td class="indicator" id="cni3">C&I 3</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="rtc1">RTC 1</td>
+                            <td class="indicator" id="rtc2">RTC 2</td>
+                            <td class="indicator" id="rtc3">RTC 3</td>
+                            <td class="indicator" id="ethics">ETHICS</td>
+                            <td class="indicator" id="diversity">DIVERSITY</td>
+                        </tr>
+                        <tr>
+                            <td class="indicator" id="socsci">SOC. SCIENCE</td>
+                            <td class="indicator" id="elsj">ELSJ</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default no-marg">
+                <div class="panel-heading">
+                    <h2 class="header">Educational Enrich.</h2>
+                </div>
+                <div class="panel-body reduce_pad">
+                    <ul id="enrichList">
+                        <ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
