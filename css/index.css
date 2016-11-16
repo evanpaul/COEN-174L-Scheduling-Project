@@ -4,6 +4,16 @@ body {
     padding: 0.5%;
 }
 
+.removeAnim {
+    border: 0px;
+    border-radius: 25%;
+}
+
+.removeAnim:hover {
+    transition: all 0.3s ease;
+    background-color: #bf3813;
+}
+
 #class_input_form {
     display: flex;
     justify-content: center;
@@ -19,7 +29,7 @@ body {
 
 #submitButton {
     order: 2;
-    width: 100%;
+    width: 50%;
     min-width: 20em;
 }
 
@@ -77,6 +87,10 @@ body {
     background-color: #1cdb4f;
 }
 
+#newSession:hover {
+    transition: all 0.1s ease;
+    background-color: lightgreen;
+}
 
 #title {
     margin: 0;

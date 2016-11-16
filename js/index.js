@@ -205,11 +205,11 @@ function configList() {
         // case: class not in list, create list item
         else {
             if ($("#" + classCode + "_ee").length) {
-                var htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>Enrichment</td><td><button onclick='removeClass(\"" +
+                var htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>Enrichment</td><td><button class='removeAnim' onclick='removeClass(\"" +
                     classCode + "\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
                 $("#class_list").append(htmlString);
             } else {
-                var htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>" + enteredClasses[i].req + "</td><td><button onclick='removeClass(\"" +
+                var htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>" + enteredClasses[i].req + "</td><td><button class='removeAnim' onclick='removeClass(\"" +
                     classCode + "\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
                 $("#class_list").append(htmlString);
             }
