@@ -9,22 +9,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/classes.js"></script>
-    <script type="text/javascript" src="js/logic.js"></script>
-    <title>SCU Degree Progress Tracker</title>
+    <script type="text/javascript" src="js/index.js"></script>
+    <title>COEN Degree Progress Tracker</title>
 </head>
 
 <body onload="populate()">
-    <div id="topHeader">
-        <div id="titleBox">
-            <h1 id="title">SCU Degree Progress Tracker</h1>
-        </div>
-        <div id="subheader">
-            <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
-            <button class="btn btn-default" id="newSession" onclick="newSession()" type="button">Generate a new session</button>
-        </div>
-    </div>
     <div id="container">
         <div id="left_side">
+            <div id="topHeader">
+                <div id="titleBox">
+                    <h1 id="title">COEN Degree Progress Tracker</h1>
+                </div>
+                <div id="subheader">
+                    <div id="sessionBox" class="well well-sm"><strong>Session ID: </strong><span id="session"></span></div>
+                    <button class="btn btn-default" id="newSession" onclick="newSession()" type="button">New session</button>
+                </div>
+            </div>
             <div id="entered " class="panel panel-default">
                 <div id="class_list_title" class="panel-heading">
                     <h2 class="header">Enter a course</h2>
@@ -34,7 +34,6 @@
                     </form>
                 </div>
                 <div class="panel-body">
-                    <!--<ul id="class_list"></ul>-->
                     <table class="table">
                         <thead>
                             <tr>
@@ -116,9 +115,9 @@
                         <tr>
                             <td class="indicator" id="ctw1">CTW 1</td>
                             <td class="indicator" id="ctw2">CTW 2</td>
-                            <td class="indicator" id="cni1">C&I 1</td>
-                            <td class="indicator" id="cni2">C&I 2</td>
-                            <td class="indicator" id="cni3">C&I 3</td>
+                            <td class="indicator" id="cni1">CNI 1</td>
+                            <td class="indicator" id="cni2">CNI 2</td>
+                            <td class="indicator" id="cni3">CNI 3</td>
                         </tr>
                         <tr>
                             <td class="indicator" id="rtc1">RTC 1</td>
@@ -136,7 +135,7 @@
             </div>
             <div class="panel panel-default no-marg">
                 <div class="panel-heading">
-                    <h2 class="header">Educational Enrich.</h2>
+                    <h2 class="header">Educational Enrichment</h2>
                 </div>
                 <div class="panel-body reduce_pad">
                     <ul id="enrichList">

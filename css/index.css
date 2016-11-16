@@ -31,20 +31,6 @@ body {
     margin: 0px;
 }
 
-#sessionBox {
-    width: 80%;
-    margin: 0 auto;
-    order: 1;
-}
-
-#newSession {
-    background-image: linear-gradient(to bottom, #1cdb4f, ##377E27);
-    color: black;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    order: 2;
-    background-color: #1cdb4f;
-}
-
 .header {
     color: black;
     font-family: 'Roboto', sans-serif;
@@ -57,13 +43,13 @@ body {
     display: flex;
     margin: 0;
     margin-bottom: 5px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-end;
 }
 
 #titleBox {
     order: 1;
-    width: 40%;
+    width: 55%;
     margin: 0;
 }
 
@@ -71,9 +57,26 @@ body {
     margin: 0;
     order: 2;
     display: flex;
-    justify-content: space-between;
-    width: 15%;
+    justify-content: flex-start;
+    width: 45%;
 }
+
+#sessionBox {
+    text-align: center;
+    margin: 0;
+    width: 90%;
+    order: 1;
+}
+
+#newSession {
+    background-image: linear-gradient(to bottom, #1cdb4f, ##377E27);
+    width: 100%;
+    color: black;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    order: 2;
+    background-color: #1cdb4f;
+}
+
 
 #title {
     margin: 0;
