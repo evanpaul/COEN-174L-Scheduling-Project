@@ -1,6 +1,7 @@
 // Globals
 var enteredClasses = [];
 var eduFlag = false;
+var ELECT_COUNT = 0;
 // Prevent accidental page refresh
 $(document).keypress(function(event) {
     if (event.keyCode == 13) {
@@ -139,10 +140,7 @@ function addClass(classCode, req, disableSave = false) {
     enteredClasses.push(newClass);
 
     // call to reconfigure page and class list
-    configEnrichment();
-    configList();
-    configReq();
-    configElective();
+    recheck()
 
     // Used with populate() call. no sense in saving what you just loaded
     if (!disableSave) {
@@ -167,10 +165,7 @@ function removeClass(classCode) {
             // remove page, reconfigure
             else {
                 $("#" + classCode + "_").remove();
-                configEnrichment();
-                configList();
-                configReq();
-                configElective();
+                recheck()
             }
             save();
         }
@@ -238,7 +233,7 @@ function configElective() {
             count++;
         }
     }
-
+    ELECT_COUNT = count;
     // if 3 or more classes, turn green
     if (count >= 3) {
         $("#elective").css("background-color", "#1cdb4f");
@@ -376,7 +371,13 @@ function save() {
         }
     });
 }
-
+// Reconfigure everything
+function recheck(){
+    configEnrichment();
+    configList();
+    configReq();
+    configElective();
+}
 // function to set all 'used' values to 'false'
 function reconfigArray() {
     for (var i = 0; i < enteredClasses.length; i++) {
