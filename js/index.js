@@ -98,12 +98,14 @@ function getReq(classCode) {
 }
 
 // Submit user's inputted classcode
-function submitClass() {
+function submitClass(squelch = false) {
     // Catch enter key?
     var textField = $("#entered_class").val();
     $("#entered_class").val("");
     if (!textField) {
-        alert("Please enter a course!");
+        if (!squelch) {
+            alert("Please enter a course!");
+        }
         return false;
     }
     // Remove whitespace in submitted text and convert to lowercase
@@ -124,7 +126,9 @@ function submitClass() {
         }
     }
     // Case: not valid class
-    alert("The text you entered doesn't match any classes that fulfill a requirement");
+    if (!squelch) {
+        alert("The text you entered doesn't match any classes that fulfill a requirement");
+    }
     return false;
 }
 // Removes all whitespace from input text
@@ -137,8 +141,13 @@ function addClass(classCode, req, disableSave = false) {
     newClass.classCode = classCode;
     newClass.req = req;
     newClass.used = false;
-    enteredClasses.push(newClass);
 
+    // A bit hacky, but fixes elective glitch and avoid affecting double dip
+    if(req === "elective" && classFound(classCode)){
+        return false;
+    }
+
+    enteredClasses.push(newClass);
     // call to reconfigure page and class list
     recheck()
 
@@ -372,7 +381,7 @@ function save() {
     });
 }
 // Reconfigure everything
-function recheck(){
+function recheck() {
     configEnrichment();
     configList();
     configReq();

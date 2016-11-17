@@ -8,14 +8,14 @@ var tests = {
     double_dipper_and_edu_enrich: function() {
         // Add poli 2
         $("#entered_class").val("poli2");
-        submitClass();
+        submitClass(true);
         var soc_before = $("#socsci").css("background-color"); // ACTIVE
         var cni3_before = $("#cni3").css("background-color"); // ACTIVE
 
         // Add econ2
 
         $("#entered_class").val("econ2");
-        submitClass();
+        submitClass(true);
         var ee_before = $("#econ2_ee").length; // 1
 
         // Remove poli 2
@@ -41,22 +41,22 @@ var tests = {
         var electCount0 = ELECT_COUNT; // 0
 
         $("#entered_class").val("coen161");
-        submitClass();
+        submitClass(true);
         var elect1 = $("#elective").css("background-color"); // INCOMPLETE
         var electCount1 = ELECT_COUNT; // 1
 
         $("#entered_class").val("coen161");
-        submitClass();
+        submitClass(true);
         var elect2 = $("#elective").css("background-color"); // INCOMPLETE
         var electCount2 = ELECT_COUNT; // 1
 
         $("#entered_class").val("coen162");
-        submitClass();
+        submitClass(true);
         var elect3 = $("#elective").css("background-color"); // INCOMPLETE
         var electCount3 = ELECT_COUNT; // 2
 
         $("#entered_class").val("coen163");
-        submitClass();
+        submitClass(true);
         var elect4 = $("#elective").css("background-color"); // ACTIVE
         var electCount4 = ELECT_COUNT; // 3
 
@@ -84,7 +84,7 @@ var tests = {
     },
     empty_input_on_submit: function() {
         $('#entered_class').val('testtesttest');
-        submitClass();
+        submitClass(true);
 
         return [$('#entered_class').val(), ''];
     },
