@@ -2,6 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     text-rendering: optimizelegibility;
     padding: 0.5%;
+
 }
 
 .removeAnim {
@@ -96,7 +97,7 @@ body {
     margin: 0;
     text-align: center;
     color: #1cdb4f;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Oswald', sans-serif;
     text-rendering: optimizelegibility;
     font-size: 3em;
 }

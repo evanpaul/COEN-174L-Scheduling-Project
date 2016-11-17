@@ -81,6 +81,48 @@ var tests = {
             [INCOMPLETE, 2]
         ];
         return [JSON.stringify(actual), JSON.stringify(expected)];
+    },
+    empty_input_on_submit: function() {
+        $('#entered_class').val('testtesttest');
+        submitClass();
+
+        return [$('#entered_class').val(), ''];
+    },
+    save_and_retrieve: function() {
+        var id = getID();
+        var expected = enteredClasses;
+        // Convert use flags to string for sake of comparison
+        for (var i = 0; i < expected.length; i++) {
+            course = expected[i];
+            (course.used === true) ? (course.used = "true") : (course.used = "false");
+        }
+        expected = JSON.stringify(expected);
+        // POST, GET, and verify result
+        var result = '';
+        $.ajax({
+            type: "POST",
+            url: "php/post.php",
+            async: false,
+            data: {
+                "id": id,
+                "classes": enteredClasses,
+                "eduFlag": eduFlag
+            },
+            success: function() {
+                $.ajax({
+                    type: "GET",
+                    url: "php/get.php",
+                    async: false,
+                    data: {
+                        "id": id
+                    },
+                    success: function(d) {
+                        result = JSON.parse(d).classes;
+                    }
+                });
+            }
+        });
+        return [JSON.stringify(result), expected];
     }
 };
 
@@ -90,9 +132,12 @@ function runTests(restore = true) {
     console.log('Beginning ' + Object.keys(tests).length + ' tests');
 
     // Start with a clean slate
-    passcount = 0;
-    failcount = 0;
-    temp = enteredClasses;
+    passCount = 0;
+    failCount = 0;
+    oldState = enteredClasses;
+    if (restore) {
+        console.log("Stashing state:", oldState);
+    }
     enteredClasses = [];
     recheck();
 
@@ -104,14 +149,14 @@ function runTests(restore = true) {
 
         if (results[0] === results[1]) {
             console.log(prettyName + ' %cPASS', 'background: #222; color: #bada55');
-            passcount++;
+            passCount++;
         } else {
             console.log(prettyName + ' %cFAIL', 'background: red; color: white');
             console.log("ACTUAL:");
             console.log(results[0]);
             console.log("EXPECTED:")
             console.log(results[1]);
-            failcount++;
+            failCount++;
         }
     }
 
@@ -119,15 +164,15 @@ function runTests(restore = true) {
     console.log('----------------------------------------');
 
     // summarize
-    if (failcount === 0) {
-        console.log('%c' + passcount + ' tests passed (100% success)', 'background: #222; color: #bada55');
+    if (failCount === 0) {
+        console.log('%c' + passCount + ' tests passed (100% success)', 'background: #222; color: #bada55');
     } else {
-        console.log('%c' + passcount + ' tests passed', 'background: #222; color: #bada55');
-        console.log('%c' + failcount + ' tests failed', 'background: red; color: white');
+        console.log('%c' + passCount + ' tests passed', 'background: #222; color: #bada55');
+        console.log('%c' + failCount + ' tests failed', 'background: red; color: white');
     }
     // Restore session
     if (restore) {
-        enteredClasses = temp;
+        enteredClasses = oldState;
         recheck();
     }
 }
