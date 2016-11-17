@@ -1,6 +1,7 @@
 // Globals
 var enteredClasses = [];
 var eduFlag = false;
+var ELECT_COUNT = 0;
 // Prevent accidental page refresh
 $(document).keypress(function(event) {
     if (event.keyCode == 13) {
@@ -33,7 +34,7 @@ function getID() {
     location.search.substr(1).split("&").forEach(function(item) {
         queryDict[item.split("=")[0]] = item.split("=")[1];
     });
-    return queryDict["id"];
+    return queryDict.id;
 }
 
 function populate() {
@@ -97,12 +98,14 @@ function getReq(classCode) {
 }
 
 // Submit user's inputted classcode
-function submitClass() {
+function submitClass(squelch = false) {
     // Catch enter key?
     var textField = $("#entered_class").val();
     $("#entered_class").val("");
     if (!textField) {
-        alert("Please enter a course!");
+        if (!squelch) {
+            alert("Please enter a course!");
+        }
         return false;
     }
     // Remove whitespace in submitted text and convert to lowercase
@@ -123,7 +126,9 @@ function submitClass() {
         }
     }
     // Case: not valid class
-    alert("The text you entered doesn't match any classes that fulfill a requirement");
+    if (!squelch) {
+        alert("The text you entered doesn't match any classes that fulfill a requirement");
+    }
     return false;
 }
 // Removes all whitespace from input text
@@ -136,13 +141,15 @@ function addClass(classCode, req, disableSave = false) {
     newClass.classCode = classCode;
     newClass.req = req;
     newClass.used = false;
-    enteredClasses.push(newClass);
 
+    // A bit hacky, but fixes elective glitch and avoid affecting double dip
+    if(req === "elective" && classFound(classCode)){
+        return false;
+    }
+
+    enteredClasses.push(newClass);
     // call to reconfigure page and class list
-    configEnrichment();
-    configList();
-    configReq();
-    configElective();
+    recheck()
 
     // Used with populate() call. no sense in saving what you just loaded
     if (!disableSave) {
@@ -167,10 +174,7 @@ function removeClass(classCode) {
             // remove page, reconfigure
             else {
                 $("#" + classCode + "_").remove();
-                configEnrichment();
-                configList();
-                configReq();
-                configElective();
+                recheck()
             }
             save();
         }
@@ -238,7 +242,7 @@ function configElective() {
             count++;
         }
     }
-
+    ELECT_COUNT = count;
     // if 3 or more classes, turn green
     if (count >= 3) {
         $("#elective").css("background-color", "#1cdb4f");
@@ -376,7 +380,13 @@ function save() {
         }
     });
 }
-
+// Reconfigure everything
+function recheck() {
+    configEnrichment();
+    configList();
+    configReq();
+    configElective();
+}
 // function to set all 'used' values to 'false'
 function reconfigArray() {
     for (var i = 0; i < enteredClasses.length; i++) {
