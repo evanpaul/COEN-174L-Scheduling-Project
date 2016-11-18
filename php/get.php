@@ -16,6 +16,8 @@ if(isset($_GET['id'])){
     }else{
         $output =  "INVALID";
     }
+    $error = $id.":::".$output
+    logger($output);
     echo $output;
 }
 

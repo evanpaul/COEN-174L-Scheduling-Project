@@ -42,4 +42,12 @@ function save_session($json_string){
         print "[ERROR] Unable to write to file!";
     }
 }
+// Log to file for debugging
+function logger($string){
+    $result = file_put_contents("../error.log", $string);
+
+    if(!$result){
+        print "[ERROR] Unable to write to file!";
+    }
+}
 ?>
