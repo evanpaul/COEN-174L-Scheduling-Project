@@ -84,6 +84,7 @@ function populate() {
         }
     })
 }
+
 // Given a classcode, return a requirement (iff exists)
 function getReq(classCode) {
     var dept = classCode.substring(0, 4);
@@ -125,6 +126,13 @@ function submitClass(squelch = false) {
             return true;
         }
     }
+
+    // case: non-CORE class, check if valid non-COEN elective
+    if (validElective(dept, num)) {
+        addClass(classCode, "extra");
+        return true;
+    }
+
     // Case: not valid class
     if (!squelch) {
         alert("The text you entered doesn't match any classes that fulfill a requirement");
@@ -136,6 +144,44 @@ function trimWhitespace(x) {
     return x.replace(/\s/g, '')
 }
 
+// function to check if a non-COEN elective is a valid class
+function validElective(dept, num) {
+
+    // flags
+    var deptFlag = false;
+    var numFlag = false;
+
+    // check if department is valid, set deptFlag
+    for (var i = 0; i < departments.length; i++) {
+        if (departments[i] == dept) {
+            deptFlag = true;
+            break;
+        }
+    }
+
+    // invalid dept: return false;
+    if (!deptFlag) {
+        return false;
+    }
+
+    // check if course number is valid, set numFlag
+    if (deptFlag) {
+        var parsedNum = parseInt(num);
+        if (parsedNum > 0 && parsedNum < 500) {
+            numFlag = true;
+        }
+    }
+
+    // if both are valid, return true
+    if (deptFlag && numFlag) {
+        return true;
+    }
+
+    // return false, not valid classCode
+    return false;
+}
+
+// function to add a valid class
 function addClass(classCode, req, disableSave = false) {
     var newClass = {};
     newClass.classCode = classCode;
@@ -197,23 +243,29 @@ function configList() {
     for (var i = 0; i < enteredClasses.length; i++) {
         classCode = enteredClasses[i].classCode;
         req = enteredClasses[i].req;
-        patt = new RegExp(req);
+        patt = new RegExp(getReqLabel(req));
         // case: if the class is already in the list
         if ($("#" + classCode + "_").length) {
             str = $("#" + classCode + "_r").html()
                 // check if req is already printed
             if (!patt.test(str)) {
-                $("#" + classCode + "_r").append(", " + req);
+                $("#" + classCode + "_r").append(", " + getReqLabel(req));
             }
         }
         // case: class not in list, create list item
         else {
+            if (req == "extra") {
+                htmlString = "<tr id='" + classCode + "_'><td>" + getElecLabel(classCode) + "</td><td id='" + classCode + "_r'>Enrichment</td><td><button class='removeAnim' onclick='removeClass(\"" +
+                    classCode + "\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
+                $("#class_list").append(htmlString);
+                continue;
+            }
             if ($("#" + classCode + "_ee").length) {
-                var htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>Enrichment</td><td><button class='removeAnim' onclick='removeClass(\"" +
+                htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>Enrichment</td><td><button class='removeAnim' onclick='removeClass(\"" +
                     classCode + "\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
                 $("#class_list").append(htmlString);
             } else {
-                var htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>" + enteredClasses[i].req + "</td><td><button class='removeAnim' onclick='removeClass(\"" +
+                htmlString = "<tr id='" + classCode + "_'><td>" + getLabel(classCode) + "</td><td id='" + classCode + "_r'>" + getReqLabel(req) + "</td><td><button class='removeAnim' onclick='removeClass(\"" +
                     classCode + "\")'> <span class='glyphicon glyphicon-remove'></span></button></li></td></tr>";
                 $("#class_list").append(htmlString);
             }
@@ -229,7 +281,9 @@ function configReq() {
 
     // turn all fulfilled reqs to green
     for (var i = 0; i < enteredClasses.length; i++) {
+      if (enteredClasses[i].req != "extra") {
         $("#" + enteredClasses[i].req).css('background-color', '#1cdb4f');
+      }
     }
 }
 
@@ -267,12 +321,11 @@ function configElective() {
 // classes that aren't being used towards a req fit here
 function configEnrichment() {
 
-    var i, j;
+    var i, j, k;
 
     // set all classes.used to "false", clear enrichList
     reconfigArray();
     $("#enrichList").empty();
-
 
     // go through and find double dips first
     for (i = 0; i < enteredClasses.length; i++) {
@@ -289,8 +342,14 @@ function configEnrichment() {
             if (!reqFulfilled(enteredClasses[j].req)) {
                 markTrue(enteredClasses[j].classCode);
             } else {
-                htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getLabel(enteredClasses[j].classCode) + "</li>";
-                $("#enrichList").append(htmlString);
+                if (enteredClasses[i].req == "extra") {
+                    htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getElecLabel(enteredClasses[j].classCode) + "</li>";
+                    $("#enrichList").append(htmlString);
+                }
+                else {
+                    htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getLabel(enteredClasses[j].classCode) + "</li>";
+                    $("#enrichList").append(htmlString);
+                }
             }
         }
     }
@@ -338,7 +397,26 @@ function getLabel(classCode) {
         }
     }
 
-    console.log("Error: countReq() - Label not found");
+    console.log("Error: getLabel() - Label not found");
+}
+
+// function returns a stylized label string for a non-COEN elective
+function getElecLabel(classCode) {
+    var dept = classCode.substring(0, 4);
+    var num = classCode.substring(4);
+
+    return dept.toUpperCase() + " " + num.toUpperCase();
+}
+
+// function returns a stylized requirement label string
+function getReqLabel(req) {
+    for (var i = 0; i < requirements.reqs.length; i++) {
+        if (requirements.reqs[i].req == req)  {
+            return requirements.reqs[i].label;
+        }
+    }
+
+    console.log("Error: getReqLabel() - Label not found");
 }
 
 // Is the requirement present in the global list?
@@ -352,6 +430,7 @@ function reqFound(req) {
     return false;
 
 }
+
 // Is the class present in the global list?
 function classFound(classCode) {
     var i;
@@ -380,6 +459,7 @@ function save() {
         }
     });
 }
+
 // Reconfigure everything
 function recheck() {
     configEnrichment();
@@ -387,6 +467,7 @@ function recheck() {
     configReq();
     configElective();
 }
+
 // function to set all 'used' values to 'false'
 function reconfigArray() {
     for (var i = 0; i < enteredClasses.length; i++) {
