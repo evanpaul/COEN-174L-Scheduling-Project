@@ -18,14 +18,14 @@ if (!session_id) {
                 reqObject = {
                     "id": session_id
                 };
-                window.location = "index.html?id=" + session_id;
+                window.location = "app.html?id=" + session_id;
             }
             return false; // Prevents default behavior
         }
     });
 } else {
     console.log("Cookie found! Yum.");
-    window.location = "index.html?id=" + session_id;
+    window.location = "app.html?id=" + session_id;
 }
 // Generate a new session with unique ID
 // Unique ID generaton in JS source: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -37,5 +37,5 @@ function generate() {
         session += v.toString(16); // Hexadecimal encoding
     });
     // Redirect
-    window.location = "index.html?id=" + session;
+    window.location = "app.html?id=" + session;
 }

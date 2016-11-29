@@ -25,7 +25,7 @@ function newSession(confirmFlag = true) {
             session += v.toString(16); // Hexadecimal encoding
         });
         // Redirect
-        window.location = "index.html?id=" + session;
+        window.location = "app.html?id=" + session;
     }
 }
 // Retrieve ID from GET parameter in URL
@@ -64,7 +64,7 @@ function populate() {
                 var json = JSON.parse(d);
                 if (json != undefined && json.classes != null) {
                     eduFlag = (json.eduFlag === "true"); // String => Boolean
-                    // Loop through received list of classes and add to global list with requirements fulfilled
+                    // Loop through received list of classes and add to global list with ments fulfilled
                     for (var i = 0; i < json.classes.length; i++) {
                         var classCode = json.classes[i].classCode;
                         var req = json.classes[i].req;
