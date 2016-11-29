@@ -735,5 +735,16 @@ var departments = [
     "mgmt",
     "mktg",
     "omis",
-    
-    ]
+    "amth",
+    "bioe",
+    "ceng",
+    "coen",
+    "elen",
+    "engr",
+    "emgt",
+    "mech",
+    "aero",
+    "lead",
+    "mils",
+    "hnrs"
+  ];
