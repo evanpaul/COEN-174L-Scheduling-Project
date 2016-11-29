@@ -189,7 +189,7 @@ function addClass(classCode, req, disableSave = false) {
     newClass.used = false;
 
     // A bit hacky, but fixes elective glitch and avoid affecting double dip
-    if(req === "elective" && classFound(classCode)){
+    if (req === "elective" && classFound(classCode)) {
         return false;
     }
 
@@ -281,9 +281,9 @@ function configReq() {
 
     // turn all fulfilled reqs to green
     for (var i = 0; i < enteredClasses.length; i++) {
-      if (enteredClasses[i].req != "extra") {
-        $("#" + enteredClasses[i].req).css('background-color', '#1cdb4f');
-      }
+        if (enteredClasses[i].req != "extra") {
+            $("#" + enteredClasses[i].req).css('background-color', '#1cdb4f');
+        }
     }
 }
 
@@ -337,10 +337,9 @@ function configEnrichment() {
         // pass over electives
         if (enteredClasses[j].req == "elective") {
             continue;
-        }
-        else if (enteredClasses[j].req == "extra") {
-          htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getElecLabel(enteredClasses[j].classCode) + "</li>";
-          $("#enrichList").append(htmlString);
+        } else if (enteredClasses[j].req == "extra") {
+            htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getElecLabel(enteredClasses[j].classCode) + "</li>";
+            $("#enrichList").append(htmlString);
         }
         if (enteredClasses[j].used == false) {
             if (!reqFulfilled(enteredClasses[j].req)) {
@@ -349,8 +348,7 @@ function configEnrichment() {
                 if (enteredClasses[j].req == "extra") {
                     htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getElecLabel(enteredClasses[j].classCode) + "</li>";
                     $("#enrichList").append(htmlString);
-                }
-                else {
+                } else {
                     htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getLabel(enteredClasses[j].classCode) + "</li>";
                     $("#enrichList").append(htmlString);
                 }
@@ -371,7 +369,7 @@ function markTrue(classCode) {
 // function returns whether a req is being fulfilled by a class
 function reqFulfilled(req) {
     if (req == "extra") {
-      return false;
+        return false;
     }
 
     for (var i = 0; i < enteredClasses.length; i++) {
@@ -419,7 +417,7 @@ function getElecLabel(classCode) {
 // function returns a stylized requirement label string
 function getReqLabel(req) {
     for (var i = 0; i < requirements.reqs.length; i++) {
-        if (requirements.reqs[i].req == req)  {
+        if (requirements.reqs[i].req == req) {
             return requirements.reqs[i].label;
         }
     }
