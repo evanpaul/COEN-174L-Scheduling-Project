@@ -338,11 +338,15 @@ function configEnrichment() {
         if (enteredClasses[j].req == "elective") {
             continue;
         }
+        else if (enteredClasses[j].req == "extra") {
+          htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getElecLabel(enteredClasses[j].classCode) + "</li>";
+          $("#enrichList").append(htmlString);
+        }
         if (enteredClasses[j].used == false) {
             if (!reqFulfilled(enteredClasses[j].req)) {
                 markTrue(enteredClasses[j].classCode);
             } else {
-                if (enteredClasses[i].req == "extra") {
+                if (enteredClasses[j].req == "extra") {
                     htmlString = "<li id ='" + enteredClasses[j].classCode + "_ee'>" + getElecLabel(enteredClasses[j].classCode) + "</li>";
                     $("#enrichList").append(htmlString);
                 }
@@ -366,6 +370,10 @@ function markTrue(classCode) {
 
 // function returns whether a req is being fulfilled by a class
 function reqFulfilled(req) {
+    if (req == "extra") {
+      return false;
+    }
+
     for (var i = 0; i < enteredClasses.length; i++) {
         if (enteredClasses[i].req == req && enteredClasses[i].used == true) {
             return true;
